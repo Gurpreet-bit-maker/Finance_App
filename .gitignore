@@ -8,6 +8,24 @@ pnpm-debug.log*
 lerna-debug.log*
 .env
 
+# Node modules
+Authenticaion And Authorization/Backend/node_modules/
+
+# OS files
+*.DS_Store
+
+# Environment files
+.env
+
+# Node modules
+backend/node_modules/
+frontend/node_modules/
+
+# OS files
+*.DS_Store
+
+# Build folders (React build)
+frontend/build/
 
 node_modules
 dist
