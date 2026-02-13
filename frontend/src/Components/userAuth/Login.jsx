@@ -2,7 +2,14 @@ import useValidation from "../../Hooks/formvalidation/Validation";
 import { useNavigate } from "react-router-dom";
 export default function Login() {
   let navigate = useNavigate();
-  let { register, handleSubmit, errors, submitForm, loader } = useValidation();
+  let {
+    register,
+    handleSubmit,
+    errors,
+    login_SubmitForm,
+    loader,
+    passwordErr,
+  } = useValidation();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-200 ">
@@ -11,7 +18,7 @@ export default function Login() {
           Finance App Login
         </h2>
 
-        <form onSubmit={handleSubmit(submitForm)} className="space-y-2">
+        <form onSubmit={handleSubmit(login_SubmitForm)} className="space-y-2">
           <input
             type="email"
             placeholder="Email"
@@ -23,6 +30,7 @@ export default function Login() {
           ) : (
             <p className=" h-5"></p>
           )}
+          {passwordErr && <p className="text-red-500">{passwordErr}</p>}
           <input
             type="password"
             placeholder="Password"

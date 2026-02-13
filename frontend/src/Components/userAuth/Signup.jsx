@@ -1,9 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import useValidation from "../../Hooks/formvalidation/Validation";
+import usePasswordVisible from "../../Hooks/toggle/PasswordVisible";
 function Signup() {
   let navigate = useNavigate();
-  let { register, handleSubmit, errors, submitForm, loader } = useValidation();
+  let {
+    register,
+    handleSubmit,
+    errors,
+    signup_SubmitForm,
+    loader,
+    otherErrors,
+  } = useValidation();
+  let { isToggle, showHide_password } = usePasswordVisible();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -12,7 +21,7 @@ function Signup() {
           Create Your Account
         </h2>
 
-        <form className="space-y-1" onSubmit={handleSubmit(submitForm)}>
+        <form className="space-y-1" onSubmit={handleSubmit(signup_SubmitForm)}>
           <input
             type="text"
             placeholder="Full Name"
@@ -35,10 +44,17 @@ function Signup() {
           ) : (
             <p className=" h-5"></p>
           )}
+          {otherErrors && (
+            <span className="text-red-500 text-sm">{otherErrors}</span>
+          )}
           <input
             type="number"
             placeholder="Phone"
-            {...register("userPhone", { required: "Phone Required" })}
+            {...register("userPhone", {
+              required: "Phone Required",
+              minLength: { value: 10, message: "10 digits" },
+              maxLength: { value: 10, message: "10 digits" },
+            })}
             className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.userPhone ? (
@@ -46,12 +62,21 @@ function Signup() {
           ) : (
             <p className=" h-5"></p>
           )}
-          <input
-            type="password"
-            placeholder="Password"
-            {...register("userPassword", { required: "Password Required" })}
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          <div className=" relative border flex border border-gray-300 rounded-lg">
+            <input
+              type={isToggle ? "text" : "password"} //! password hide & show
+              placeholder="Password"
+              {...register("userPassword", { required: "Password Required" })}
+              className="w-full p-2   focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <span
+              onClick={showHide_password}
+              className="absolute text-center w-8 right-2 top-3 bg-gray-300 p-1 rounded-lg text-gray-500 text-[9px]"
+            >
+              {isToggle ? "Hide" : "Show"}
+            </span>
+          </div>
+
           {errors.userPassword ? (
             <p className="text-sm text-red-400">
               {errors.userPassword.message}
@@ -95,15 +120,14 @@ function Signup() {
         <p className="mt-5 text-center text-gray-600">
           Already have an account?{" "}
           <span
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/login")}
             className="text-blue-600 font-medium cursor-pointer hover:underline"
             Login
-            >Login
+          >
+            Login
           </span>
         </p>
       </div>
-      
-      
     </div>
   );
 }

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 function useValidation() {
+  const navigate = useNavigate();
   let {
     register,
     handleSubmit,
@@ -11,18 +13,68 @@ function useValidation() {
   } = useForm();
 
   let [loader, setLoader] = useState(false);
+  let [otherErrors, setOtherErrors] = useState("");
+  let [passwordErr, setPasswordErr] = useState(null);
 
   // formhook & loader
-  const submitForm = (e) => {
+  const signup_SubmitForm = async (userSignData) => {
     setLoader(true);
-    console.log(e);
-    reset();
     setTimeout(() => {
       setLoader(false);
+      reset();
     }, 2000);
+
+    try {
+      let res = await axios.post(
+        "http://localhost:3000/user/sign",
+        userSignData,
+        {
+          withCredentials: true,
+        },
+      );
+      if (res.status === 200) {
+        navigate("/");
+      }
+    } catch (error) {
+      if (error.response.data.message == "already exist") {
+        setOtherErrors("already exist");
+      }
+    }
   };
 
-  return { register, handleSubmit, errors, submitForm, loader };
+  const login_SubmitForm = async (userLogindata) => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+      reset();
+    }, 2000);
+    try {
+      let res = await axios.post(
+        "http://localhost:3000/user/login",
+        userLogindata,
+        { withCredentials: true },
+      );
+      console.log(res);
+      if (res.status === 200) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+      setPasswordErr(error.response.data.message);
+    }
+    setPasswordErr(null);
+  };
+
+  return {
+    register,
+    handleSubmit,
+    errors,
+    signup_SubmitForm,
+    login_SubmitForm,
+    loader,
+    otherErrors,
+    passwordErr,
+  };
 }
 
 export default useValidation;
