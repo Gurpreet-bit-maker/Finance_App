@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { AuthContextVarible } from "../../Context/auth/AuthContext";
+import { useContext } from "react";
 function useValidation() {
   const navigate = useNavigate();
+  let { user, setUser } = useContext(AuthContextVarible);
+  if (user) {
+    navigate("/");
+  }
   let {
     register,
     handleSubmit,
@@ -25,16 +31,12 @@ function useValidation() {
     }, 2000);
 
     try {
-      let res = await axios.post(
-        "http://localhost:3000/user/sign",
-        userSignData,
-        {
-          withCredentials: true,
-        },
-      );
-      if (res.status === 200) {
-        navigate("/");
-      }
+      await axios.post("http://localhost:3000/user/sign", userSignData, {
+        withCredentials: true,
+      });
+      navigate("/");
+      // if (res.status === 200) {
+      // }
     } catch (error) {
       if (error.response.data.message == "already exist") {
         setOtherErrors("already exist");
@@ -47,22 +49,21 @@ function useValidation() {
     setTimeout(() => {
       setLoader(false);
       reset();
-    }, 2000);
+    }, 3000);
     try {
       let res = await axios.post(
         "http://localhost:3000/user/login",
         userLogindata,
         { withCredentials: true },
       );
+      setUser(res.data);
       console.log(res);
-      if (res.status === 200) {
-        navigate("/");
-      }
+
+      setPasswordErr(null);
     } catch (error) {
       console.log(error);
       setPasswordErr(error.response.data.message);
     }
-    setPasswordErr(null);
   };
 
   return {

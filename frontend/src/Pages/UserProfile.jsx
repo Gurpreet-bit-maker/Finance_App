@@ -1,57 +1,61 @@
 import React from "react";
-
+import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
+import { ProfileVarible } from "../Context/ProfileContext";
+import { useContext } from "react";
 function UserProfile() {
-  //   Example user object structure:
-  const user = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    phone: "+91 12345 67890",
-    memberSince: "January 2026",
-    accountType: "Premium",
-    profilePic: "https://via.placeholder.com/100",
-    currency: "₹",
-  };
-
+  let { profile } = useContext(ProfileVarible);
+  console.log(profile);
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-start p-8">
-      <div className="bg-white rounded-xl shadow-lg w-full max-w-3xl p-8">
-        {/* Header */}
-        <div className="flex items-center space-x-6 mb-8">
-          <img
-            src={user.profilePic || "https://via.placeholder.com/100"}
-            alt="User Avatar"
-            className="w-24 h-24 rounded-full object-cover"
-          />
-        <div>
-          <h2 className="text-2xl font-bold">Hello, {user.name}</h2>
-          <p className="text-gray-500">{user.email}</p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-100 flex justify-center items-start p-6">
+      <div className="w-full max-w-3xl">
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          {/* Header */}
+          <div className="flex items-center gap-6 mb-8">
+            <div className="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-white text-3xl font-bold">
+              {profile.name?.charAt(0)}
+            </div>
 
-      {/* Profile Info */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {user.phone && (
-          <div className="bg-gray-50 p-4 rounded-lg shadow-inner">
-            <h3 className="font-semibold text-gray-700">Phone</h3>
-            <p className="text-gray-600">{user.phone}</p>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">
+                Hello, {profile.name}
+              </h2>
+              <p className="text-gray-500">{profile.email}</p>
+            </div>
           </div>
-        )}
-        <div className="bg-gray-50 p-4 rounded-lg shadow-inner">
-          <h3 className="font-semibold text-gray-700">Member Since</h3>
-          <p className="text-gray-600">{user.memberSince}</p>
-        </div>
-        <div className="bg-gray-50 p-4 rounded-lg shadow-inner">
-          <h3 className="font-semibold text-gray-700">Account Type</h3>
-          <p className="text-gray-600">{user.accountType}</p>
-        </div>
-        {user.currency && (
-          <div className="bg-gray-50 p-4 rounded-lg shadow-inner">
-            <h3 className="font-semibold text-gray-700">Currency</h3>
-            <p className="text-gray-600">{user.currency}</p>
+
+          {/* Info Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {profile.phone && (
+              <div className="bg-gray-50 p-5 rounded-xl shadow-sm">
+                <h3 className="text-sm text-gray-500">Phone</h3>
+                <p className="text-lg font-semibold text-gray-800">
+                  {profile.phone}
+                </p>
+              </div>
+            )}
+
+            {profile.accountType && (
+              <div className="bg-gray-50 p-5 rounded-xl shadow-sm">
+                <h3 className="text-sm text-gray-500">Account Type</h3>
+                <p className="text-lg font-semibold text-gray-800">
+                  {profile.accountType}
+                </p>
+              </div>
+            )}
+
+            {profile.currency && (
+              <div className="bg-gray-50 p-5 rounded-xl shadow-sm">
+                <h3 className="text-sm text-gray-500">Currency</h3>
+                <p className="text-lg font-semibold text-gray-800">
+                  {profile.currency}
+                </p>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
-    </div>
     </div>
   );
 }

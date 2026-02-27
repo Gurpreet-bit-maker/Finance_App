@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import useValidation from "../../Hooks/formvalidation/Validation";
-import usePasswordVisible from "../../Hooks/toggle/PasswordVisible";
+
 function Signup() {
   let navigate = useNavigate();
   let {
@@ -12,7 +12,6 @@ function Signup() {
     loader,
     otherErrors,
   } = useValidation();
-  let { isToggle, showHide_password } = usePasswordVisible();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -64,17 +63,11 @@ function Signup() {
           )}
           <div className=" relative border flex border border-gray-300 rounded-lg">
             <input
-              type={isToggle ? "text" : "password"} //! password hide & show
+              type="password" //! password hide & show
               placeholder="Password"
               {...register("userPassword", { required: "Password Required" })}
               className="w-full p-2   focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <span
-              onClick={showHide_password}
-              className="absolute text-center w-8 right-2 top-3 bg-gray-300 p-1 rounded-lg text-gray-500 text-[9px]"
-            >
-              {isToggle ? "Hide" : "Show"}
-            </span>
           </div>
 
           {errors.userPassword ? (

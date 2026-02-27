@@ -11,7 +11,7 @@ let AuthContext = ({ children }) => {
   useEffect(() => {
     let isUserLogin = async () => {
       try {
-        let isLogin = await axios.get("http://localhost:3000/", {
+        let isLogin = await axios.get("http://localhost:3000/transections", {
           withCredentials: true,
         });
         setUser(isLogin.data);
@@ -28,7 +28,7 @@ let AuthContext = ({ children }) => {
   }, []);
 
   return (
-    <AuthContextVarible.Provider value={{ user, loading }}>
+    <AuthContextVarible.Provider value={{ user, loading, setUser }}>
       {children}
     </AuthContextVarible.Provider>
   );
