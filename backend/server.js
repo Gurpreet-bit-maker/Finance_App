@@ -98,8 +98,14 @@ app.post("/user/login", async (req, res) => {
     console.log(error);
   }
 });
-//? auth middleware
+// logout Route
+app.get("/user/logout", async (req, res) => {
+  console.log(req.cookies.token);
+  res.clearCookie("token", { path: "/", sameSite: "lax", httpOnly: true });
+  res.json("removed cookie");
+});
 
+//? auth middleware
 let authMiddle = (req, res, next) => {
   try {
     let tokenReceive = req.cookies.token;
@@ -113,6 +119,7 @@ let authMiddle = (req, res, next) => {
     return res.status(401).json({ message: "invalid token" });
   }
 };
+
 //* user Profile
 app.get("/user/profile", authMiddle, async (req, res) => {
   try {

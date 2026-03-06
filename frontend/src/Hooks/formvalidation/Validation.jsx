@@ -6,10 +6,8 @@ import { AuthContextVarible } from "../../Context/auth/AuthContext";
 import { useContext } from "react";
 function useValidation() {
   const navigate = useNavigate();
-  let { user, setUser } = useContext(AuthContextVarible);
-  if (user) {
-    navigate("/");
-  }
+  let { setUser } = useContext(AuthContextVarible);
+
   let {
     register,
     handleSubmit,
@@ -57,8 +55,7 @@ function useValidation() {
         { withCredentials: true },
       );
       setUser(res.data);
-      console.log(res);
-
+      navigate("/");
       setPasswordErr(null);
     } catch (error) {
       console.log(error);

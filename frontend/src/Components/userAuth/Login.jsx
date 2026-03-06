@@ -1,7 +1,11 @@
+import { useState } from "react";
 import useValidation from "../../Hooks/formvalidation/Validation";
 import { useNavigate } from "react-router-dom";
+
 export default function Login() {
   let navigate = useNavigate();
+  let [loading, setLoading] = useState(false);
+
   let {
     register,
     handleSubmit,
@@ -10,8 +14,10 @@ export default function Login() {
     loader,
     passwordErr,
   } = useValidation();
-
-  return (
+  setTimeout(() => {
+    setLoading(true);
+  }, 1000);
+  return loading ? (
     <div className="min-h-screen flex items-center justify-center bg-gray-200 ">
       <div className="bg-white p-8 m-2 rounded-xl shadow-lg w-full max-w-md">
         <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
@@ -88,6 +94,10 @@ export default function Login() {
           </span>
         </p>
       </div>
+    </div>
+  ) : (
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
     </div>
   );
 }

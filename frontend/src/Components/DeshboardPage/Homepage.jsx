@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./Navbar";
 import { AuthContextVarible } from "../../Context/auth/AuthContext";
 import { useEffect, useState, useContext } from "react";
 import SummuryCard from "./SummuryCard";
@@ -49,8 +48,6 @@ function HomePage() {
 
   return (
     <>
-      {/* Navbar */}
-      <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 p-6 md:p-10">
         {/* Top Bar */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">

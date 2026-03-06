@@ -5,20 +5,13 @@ import useDeleteTrans from "../Hooks/crudHooks/DeleteTrans";
 import useLoading from "../Hooks/loader/Loading";
 import axios from "axios";
 import { UserTransectionsVarible } from "../Context/Transections/SummeryContext";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+
 function RecentTransections() {
   let { setToggle } = useContext(UserTransectionsVarible);
   let { recentTransactions } = useContext(UserRecentTran_Varible);
   let { setdel_id } = useDeleteTrans();
   let { loader, setLoader } = useLoading();
-
+  console.log(recentTransactions);
   setTimeout(() => {
     setLoader(true);
   }, 1000);
@@ -39,7 +32,6 @@ function RecentTransections() {
       console.log(error);
     }
   };
-  console.log(recentTransactions);
 
   return (
     <>
@@ -60,15 +52,6 @@ function RecentTransections() {
               <h2 className="text-2xl font-semibold mb-4">
                 Recent Transactions
               </h2>
-
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={recentTransactions}>
-                  <XAxis dataKey="typeSource" />
-                  <YAxis  />
-                  <Tooltip />
-                  <Bar dataKey="amount" fill="#22c55e" />
-                </BarChart>
-              </ResponsiveContainer>
 
               <div className="overflow-x-auto bg-white shadow-md rounded-xl">
                 <table className="w-full text-left border-collapse">

@@ -1,28 +1,48 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Navbar() {
   let navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = async () => {
     setAnchorEl(null);
     console.log("outer touch");
   };
 
-  let [screenSize, setScreenSize] = useState(null);
+  let [screenSize, setScreenSize] = useState(window.innerWidth);
 
-  window.addEventListener("resize", () => {
-    setScreenSize(window.innerWidth);
-  });
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // logout function
+  let logOutFunc = async () => {
+    try {
+      await axios.get("http://localhost:3000/user/logout", {
+        withCredentials: true,
+      });
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -62,8 +82,13 @@ function Navbar() {
               <MenuItem onClick={handleClose}>
                 <span onClick={() => navigate("/profile")}>Profile</span>
               </MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <span onClick={logOutFunc}>Logout</span>
+              </MenuItem>
+
+              <MenuItem onClick={handleClose}>
+                <span onClick={() => navigate("/")}>Deshboard</span>
+              </MenuItem>
             </Menu>
           </nav>
         </>

@@ -5,7 +5,6 @@ export let UserRecentTran_Varible = createContext();
 
 let Rec_TransectionsProvider = ({ children }) => {
   let [recentTransactions, setRecentTransections] = useState([]);
-
   let { isToggle } = useContext(UserTransectionsVarible);
   // income data summury
 

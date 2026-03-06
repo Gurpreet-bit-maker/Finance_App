@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { UserRecentTran_Varible } from "../../Context/Transections/Transections";
 function Transections() {
   let { recentTransactions } = useContext(UserRecentTran_Varible);
+ 
 
   return (
     <>

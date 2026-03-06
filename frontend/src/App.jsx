@@ -18,6 +18,8 @@ import AuthContext from "./Context/auth/AuthContext";
 import TransectionsProvider from "../src/Context/Transections/SummeryContext";
 import Rec_TransectionsProvider from "../src/Context/Transections/Transections";
 import ProfileProvider from "./Context/ProfileContext";
+import Analytics from "./Pages/Analytics";
+import Navbar from "./Components/DeshboardPage/Navbar";
 function App() {
   return (
     <>
@@ -26,6 +28,8 @@ function App() {
           <TransectionsProvider>
             <Rec_TransectionsProvider>
               <BrowserRouter>
+                {/* Navbar */}
+                <Navbar />
                 <Routes>
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
@@ -38,6 +42,7 @@ function App() {
                       path="/recentTrans"
                       element={<RecentTransections />}
                     />
+                    <Route path="/analytics" element={<Analytics />} />
                   </Route>
                 </Routes>
               </BrowserRouter>
