@@ -6,10 +6,13 @@ import Transections from "./TransUi";
 import AddTran from "./TransInputs";
 import axios from "axios";
 import { UserTransectionsVarible } from "../../Context/Transections/SummeryContext";
+import useLoading from "../../Hooks/loader/Loading";
 
 function HomePage() {
+  let { loader, setLoader } = useLoading();
   let { user } = useContext(AuthContextVarible);
   let { isToggle, setToggle } = useContext(UserTransectionsVarible);
+
   // Example props structure
   let [errorDisplay, setErrorDisplay] = useState("");
   let [type, setTypeSource] = useState("expense");
@@ -46,7 +49,10 @@ function HomePage() {
     }
   }, [isToggle]);
 
-  return (
+  setTimeout(() => {
+    setLoader(true);
+  }, 500);
+  return loader ? (
     <>
       <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 p-6 md:p-10">
         {/* Top Bar */}
@@ -83,8 +89,12 @@ function HomePage() {
         )}
         {/* Transactions Table */}
         <Transections />
-      </div>
+      </div>{" "}
     </>
+  ) : (
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+    </div>
   );
 }
 

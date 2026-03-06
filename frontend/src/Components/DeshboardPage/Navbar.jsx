@@ -94,7 +94,10 @@ function Navbar() {
         </>
       ) : (
         <nav className="md:bg-gray-800 md:text-white md:p-4 md:flex md:justify-between md:items-center md:w-full md:border">
-          <div className="text-2xl font-bold">FinanceApp</div>
+          <div className="text-2xl font-bold">
+            Finance 
+            App
+          </div>
           <ul className="flex space-x-6">
             <li>
               <Link to="/" className="hover:text-green-400">
@@ -117,7 +120,10 @@ function Navbar() {
               </Link>
             </li>
           </ul>
-          <button className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded">
+          <button
+            onClick={logOutFunc}
+            className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded"
+          >
             Logout
           </button>
         </nav>

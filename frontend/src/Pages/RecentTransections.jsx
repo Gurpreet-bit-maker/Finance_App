@@ -14,7 +14,7 @@ function RecentTransections() {
   console.log(recentTransactions);
   setTimeout(() => {
     setLoader(true);
-  }, 1000);
+  }, 500);
 
   let handleDelete = (e) => {
     setdel_id(e);
