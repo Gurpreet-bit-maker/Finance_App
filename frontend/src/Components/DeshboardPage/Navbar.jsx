@@ -80,24 +80,28 @@ function Navbar() {
               }}
             >
               <MenuItem onClick={handleClose}>
+                <span onClick={() => navigate("/")}>Deshboard</span>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <span onClick={() => navigate("/recentTrans")}>
+                  Transactions
+                </span>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <span onClick={() => navigate("/analytics")}>Analytics</span>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
                 <span onClick={() => navigate("/profile")}>Profile</span>
               </MenuItem>
               <MenuItem onClick={handleClose}>
                 <span onClick={logOutFunc}>Logout</span>
-              </MenuItem>
-
-              <MenuItem onClick={handleClose}>
-                <span onClick={() => navigate("/")}>Deshboard</span>
               </MenuItem>
             </Menu>
           </nav>
         </>
       ) : (
         <nav className="md:bg-gray-800 md:text-white md:p-4 md:flex md:justify-between md:items-center md:w-full md:border">
-          <div className="text-2xl font-bold">
-            Finance 
-            App
-          </div>
+          <div className="text-2xl font-bold">Finance App</div>
           <ul className="flex space-x-6">
             <li>
               <Link to="/" className="hover:text-green-400">
