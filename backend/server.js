@@ -11,7 +11,7 @@ let jwt = require("jsonwebtoken");
 require("dotenv").config();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: true,
     credentials: true,
   }),
 );
@@ -55,7 +55,7 @@ app.post("/user/sign", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: "none",
       path: "/",
     });
