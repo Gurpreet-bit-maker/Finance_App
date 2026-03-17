@@ -85,8 +85,8 @@ app.post("/user/login", async (req, res) => {
     if (!token) return res.status(500).json({ message: "token not genrated" });
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
       path: "/",
     });
     console.log(userProfile);
