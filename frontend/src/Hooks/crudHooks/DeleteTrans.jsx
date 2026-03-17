@@ -13,7 +13,7 @@ function useDeleteTrans() {
     let deleteItemFunc = async () => {
       if (del_id == "") return false;
       try {
-        await axios.delete(`http://localhost:3000/transections/${del_id}`);
+        await axios.delete(`https://finance-app-8ae6.onrender.com/transections/${del_id}`);
         setToggle((prev) => !prev);
       } catch (error) {
         console.log(error);

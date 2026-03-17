@@ -11,7 +11,7 @@ let Rec_TransectionsProvider = ({ children }) => {
   useEffect(() => {
     let fetchUserTransections = async () => {
       try {
-        let userData = await axios.get("http://localhost:3000/transections", {
+        let userData = await axios.get("https://finance-app-8ae6.onrender.com/transections", {
           withCredentials: true,
         });
         setRecentTransections(userData.data);

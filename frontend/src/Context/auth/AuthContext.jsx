@@ -11,7 +11,7 @@ let AuthContext = ({ children }) => {
   useEffect(() => {
     let isUserLogin = async () => {
       try {
-        let isLogin = await axios.get("http://localhost:3000/transections", {
+        let isLogin = await axios.get("https://finance-app-8ae6.onrender.com/transections", {
           withCredentials: true,
         });
         setUser(isLogin.data);

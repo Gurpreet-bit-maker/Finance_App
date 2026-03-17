@@ -11,7 +11,7 @@ function ProfileProvider({ children }) {
     let UserProfile = async () => {
       try {
         let userProfileData = await axios.get(
-          "http://localhost:3000/user/profile",
+          "https://finance-app-8ae6.onrender.com/user/profile",
           { withCredentials: true },
         );
         setProfile(userProfileData.data);

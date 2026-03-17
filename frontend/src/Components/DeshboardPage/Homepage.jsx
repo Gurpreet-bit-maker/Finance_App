@@ -30,7 +30,7 @@ function HomePage() {
       };
       let sentTransection = async () => {
         try {
-          await axios.post("http://localhost:3000/transections", transectons, {
+          await axios.post("https://finance-app-8ae6.onrender.com/transections", transectons, {
             withCredentials: true,
           });
           setToggle((prev) => !prev);

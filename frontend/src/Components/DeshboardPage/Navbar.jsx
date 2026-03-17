@@ -35,7 +35,7 @@ function Navbar() {
   // logout function
   let logOutFunc = async () => {
     try {
-      await axios.get("http://localhost:3000/user/logout", {
+      await axios.get("https://finance-app-8ae6.onrender.com/user/logout", {
         withCredentials: true,
       });
       navigate("/login");

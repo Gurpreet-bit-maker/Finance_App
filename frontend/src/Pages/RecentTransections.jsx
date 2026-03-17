@@ -21,7 +21,7 @@ function RecentTransections() {
   };
   let deleteAllBtn = async () => {
     try {
-      await axios.get("http://localhost:3000/transections/del?type=del", {
+      await axios.get("https://finance-app-8ae6.onrender.com/transections/del?type=del", {
         withCredentials: true,
       });
       setTimeout(() => {

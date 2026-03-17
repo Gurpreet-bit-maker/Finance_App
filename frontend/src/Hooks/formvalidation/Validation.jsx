@@ -29,7 +29,7 @@ function useValidation() {
     }, 2000);
 
     try {
-      await axios.post("http://localhost:3000/user/sign", userSignData, {
+      await axios.post("https://finance-app-8ae6.onrender.com/user/sign", userSignData, {
         withCredentials: true,
       });
       navigate("/");
@@ -50,7 +50,7 @@ function useValidation() {
     }, 3000);
     try {
       let res = await axios.post(
-        "http://localhost:3000/user/login",
+        "https://finance-app-8ae6.onrender.com/user/login",
         userLogindata,
         { withCredentials: true },
       );

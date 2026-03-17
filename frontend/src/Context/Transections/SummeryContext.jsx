@@ -12,7 +12,7 @@ let TransectionsProvider = ({ children }) => {
     let fetchUserTransections = async () => {
       try {
         let userData = await axios.get(
-          "http://localhost:3000/transectionsQuery?typeSource=income",
+          "https://finance-app-8ae6.onrender.com/transectionsQuery?typeSource=income",
           { withCredentials: true },
         );
         setIncome(userData.data);
@@ -27,7 +27,7 @@ let TransectionsProvider = ({ children }) => {
     let fetchUserTransections = async () => {
       try {
         let userData = await axios.get(
-          "http://localhost:3000/transectionsQuery?typeSource=expense",
+          "https://finance-app-8ae6.onrender.com/transectionsQuery?typeSource=expense",
           { withCredentials: true },
         );
         setExpense(userData.data);
