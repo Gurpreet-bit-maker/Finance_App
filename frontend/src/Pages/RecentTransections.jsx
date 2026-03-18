@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { UserRecentTran_Varible } from "../Context/Transections/Transections";
 import { useContext } from "react";
 import useDeleteTrans from "../Hooks/crudHooks/DeleteTrans";
 import useLoading from "../Hooks/loader/Loading";
 import axios from "axios";
 import { UserTransectionsVarible } from "../Context/Transections/SummeryContext";
+import Filter from "../Components/Transections/Filter";
 
 function RecentTransections() {
   let { setToggle } = useContext(UserTransectionsVarible);
   let { recentTransactions } = useContext(UserRecentTran_Varible);
   let { setdel_id } = useDeleteTrans();
   let { loader, setLoader } = useLoading();
-  console.log(recentTransactions);
+
   setTimeout(() => {
     setLoader(true);
   }, 500);
@@ -21,9 +22,12 @@ function RecentTransections() {
   };
   let deleteAllBtn = async () => {
     try {
-      await axios.get("https://finance-app-8ae6.onrender.com/transections/del?type=del", {
-        withCredentials: true,
-      });
+      await axios.get(
+        "https://finance-app-8ae6.onrender.com/transections/del?type=del",
+        {
+          withCredentials: true,
+        },
+      );
       setTimeout(() => {
         setToggle((prev) => !prev);
         setLoader((prev) => !prev);
@@ -32,22 +36,30 @@ function RecentTransections() {
       console.log(error);
     }
   };
+  // filter func
+  let [filtedData, setFiltedData] = useState([]);
 
   return (
     <>
-      <button
-        onClick={deleteAllBtn}
-        className="bg-red-500 hover:bg-red-600 text-white m-2 p-2 rounded-lg transition duration-200"
-      >
-        🗑️ Delete All
-      </button>
-      {!loader ? (
+      <div className="flex justify-between m-2">
+        <button
+          onClick={deleteAllBtn}
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-200"
+        >
+          🗑️ Delete All
+        </button>
+        {/* filter btn */}
+        <Filter filterFunc={setFiltedData} />
+      </div>
+      <br />
+      <br />
+      {loader !== true ? (
         <div className="flex justify-center items-center h-screen">
           <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
         </div>
       ) : (
         <>
-          {recentTransactions.length > 0 ? (
+          {filtedData.length > 0 ? (
             <div className="w-full px-6 mt-6">
               <h2 className="text-2xl font-semibold mb-4">
                 Recent Transactions
@@ -66,7 +78,7 @@ function RecentTransections() {
                   </thead>
 
                   <tbody>
-                    {recentTransactions.map((t) => (
+                    {filtedData.map((t) => (
                       <tr key={t._id} className="border-t hover:bg-gray-50">
                         <td className="p-2">{t.category}</td>
 
@@ -129,7 +141,7 @@ function RecentTransections() {
                   </thead>
 
                   <tbody>
-                    {recentTransactions.map((t) => (
+                    {filtedData.map((t) => (
                       <tr key={t._id} className="border-t hover:bg-gray-50">
                         <td className="p-2">{t.category}</td>
 

@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Navigate Routes
 import Login from "./Components/userAuth/Login";
 import Signup from "./Components/userAuth/Signup";
-import Homepage from "./Components/DeshboardPage/Homepage";
+import Homepage from "./Pages/Homepage";
 import UserProfile from "./Pages/UserProfile";
 import RecentTransections from "./Pages/RecentTransections";
 // authentication

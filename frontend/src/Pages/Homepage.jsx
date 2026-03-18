@@ -1,12 +1,12 @@
 import React from "react";
-import { AuthContextVarible } from "../../Context/auth/AuthContext";
+import { AuthContextVarible } from "../Context/auth/AuthContext";
 import { useEffect, useState, useContext } from "react";
-import SummuryCard from "./SummuryCard";
-import Transections from "./TransUi";
-import AddTran from "./TransInputs";
+import SummuryCard from "../Components/DeshboardPage/SummuryCard";
+import Transections from "../Components/DeshboardPage/TransUi";
+import AddTran from "../Components/DeshboardPage/TransInputs";
 import axios from "axios";
-import { UserTransectionsVarible } from "../../Context/Transections/SummeryContext";
-import useLoading from "../../Hooks/loader/Loading";
+import { UserTransectionsVarible } from "../Context/Transections/SummeryContext";
+import useLoading from "../Hooks/loader/Loading";
 
 function HomePage() {
   let { loader, setLoader } = useLoading();
