@@ -19,6 +19,11 @@ function Filter({ filterFunc }) {
           (element) =>
             element.category == "Stationary" && element.typeSource !== "income",
         );
+        case "Clothes":
+          return recentTransactions.filter(
+          (element) =>
+            element.category == "Clothes" && element.typeSource !== "income",
+        );
       case "All":
         return recentTransactions;
 
@@ -42,24 +47,30 @@ function Filter({ filterFunc }) {
         <span>🔽</span>
         Filter{" "}
         {isToggle ? (
-          <div className="absolute top-10 bg-black text-white rounded-md">
+          <div className="absolute top-10 right-5 p-2 bg-black text-white rounded-md">
             <p
               onClick={() => dispatch({ type: "Foods" })}
-              className=" p-1 active:bg-red-400 text-[10px] tracking-wider"
+              className=" p-1 active:bg-red-400 text-[12px] tracking-wider"
             >
               Foods
             </p>
             <p
               onClick={() => dispatch({ type: "Stationary" })}
-              className=" p-1 active:bg-red-400 text-[10px] tracking-wider"
+              className=" p-1 active:bg-red-400 text-[12px] tracking-wider"
             >
               Stationary
             </p>
             <p
-              onClick={() => dispatch({ type: "All" })}
-              className=" p-1 active:bg-red-400 text-[10px] tracking-wider"
+              onClick={() => dispatch({ type: "Clothes" })}
+              className=" p-1 active:bg-red-400 text-[12px] tracking-wider"
             >
-              All Expenses
+              Clothes
+            </p>
+            <p
+              onClick={() => dispatch({ type: "All" })}
+              className=" p-1 active:bg-red-400 text-[12px] tracking-wider"
+            >
+              All
             </p>
           </div>
         ) : (

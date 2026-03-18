@@ -29,7 +29,7 @@ function AddTran({
           onChange={(event) => categoryFunc(event.target.value)}
         >
           <option value="none">choose</option>
-          <option value="Cloths">Cloths</option>
+          <option value="Clothes">Clothes</option>
           <option value="Foods">Foods</option>
           <option value="Stationary">Stationary</option>
         </select>
