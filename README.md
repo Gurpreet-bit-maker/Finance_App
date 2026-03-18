@@ -4,3 +4,5 @@
 
 ![deshboard](./images/Deshboard.png)
 ![analytics](./images/Analytics.png)
+![filter](./images/filterFunc.png)
+![loginForm](./images/loginForm.png)
