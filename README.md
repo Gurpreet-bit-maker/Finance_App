@@ -8,4 +8,4 @@
 ![loginForm](./images/loginForm.png)
 
 # Live demo
-(https://finance-app-six-blond.vercel.app/login)
+(https://finance-app-six-blond.vercel.app/)
