@@ -1,24 +1,20 @@
-let mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-let schema = new mongoose.Schema({
-  typeSource: {
-    type: String,
-    require: true,
-  },
-  category: {
-    type: String,
-    require: true,
-  },
-  amount: {
-    type: Number,
-    require: true,
-  },
-  usertoken: String,
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-});
+let incomeSchema = new mongoose.Schema(
+  {
+    incomeId: {
+      type: String,
+      unique: true,
+      required: true,
+    },
 
-let Income = mongoose.model("Income", schema);
-module.exports = Income;
+    incomeAmount: {
+      type: Number,
+      require: true,
+    },
+  },
+  { timestamps: true },
+);
+
+let Income = mongoose.model("Income", incomeSchema);
+export default Income;
