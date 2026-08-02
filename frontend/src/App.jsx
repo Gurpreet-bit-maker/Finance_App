@@ -1,54 +1,40 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import "flowbite";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Navigate Routes
-import Login from "./Components/userAuth/Login";
-import Signup from "./Components/userAuth/Signup";
-import Homepage from "./Pages/Homepage";
-import UserProfile from "./Pages/UserProfile";
-import RecentTransections from "./Pages/RecentTransections";
+import Login from "./Pages/userAuth/Login";
+import Signup from "./Pages/userAuth/Signup";
+import OtpVerifyPage from "./Pages/userAuth/OtpVerifyPage";
+import Deshboard from "./Pages/Deshboard";
+import Navbar from "./Components/BottomNav/Navbar";
+
 // authentication
 import AuthProtected from "./Components/AuthProtected";
 import AuthContext from "./Context/auth/AuthContext";
-// Context Providerj
-import TransectionsProvider from "../src/Context/Transections/SummeryContext";
-import Rec_TransectionsProvider from "../src/Context/Transections/Transections";
-import ProfileProvider from "./Context/ProfileContext";
-import Analytics from "./Pages/Analytics";
-import Navbar from "./Components/DeshboardPage/Navbar";
+import Setting from "./Pages/Setting";
+import ExpenseCreate from "./Pages/ExpenseCreate";
+
 function App() {
   return (
     <>
       <AuthContext>
-        <ProfileProvider>
-          <TransectionsProvider>
-            <Rec_TransectionsProvider>
-              <BrowserRouter>
-                {/* Navbar */}
-                <Navbar />
-                <Routes>
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<Signup />} />
-                  {/* Protected Routes */}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/verifyotp" element={<OtpVerifyPage />} />
+            <Route path="/signup" element={<Signup />} />
 
-                  <Route element={<AuthProtected />}>
-                    <Route path="/" element={<Homepage />} />
-                    <Route path="/profile" element={<UserProfile />} />
-                    <Route
-                      path="/recentTrans"
-                      element={<RecentTransections />}
-                    />
-                    <Route path="/analytics" element={<Analytics />} />
-                  </Route>
-                </Routes>
-              </BrowserRouter>
-            </Rec_TransectionsProvider>
-          </TransectionsProvider>
-        </ProfileProvider>
+            {/* Protected Routes */}
+            <Route element={<AuthProtected />}>
+              <Route path="/" element={<Deshboard />} />
+              <Route path="/add" element={<ExpenseCreate />} />
+              <Route path="/setting" element={<Setting />} />
+            </Route>
+          </Routes>
+          <Navbar />
+        </BrowserRouter>
       </AuthContext>
     </>
   );

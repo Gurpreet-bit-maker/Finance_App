@@ -2,19 +2,32 @@ import incomeModel from "../../../models/incomeSchema.js";
 
 export const incomeController = async (req, res) => {
   try {
-    let { amount } = req.body;
-    if (!amount)
-      return res.status(404).json({ message: "enter amount please" });
+    let monthBudget = req.body.monthBudget;
+    if (!monthBudget)
+      return res.status(401).json({ message: "enter amount please" });
 
-    let incomeId = `INC-ID ${Date.now()}`;
-    let income = await incomeModel.create({
-      incomeAmount: amount,
-      incomeId: incomeId,
+    const userIncome = await incomeModel.findOne({ user: req.user.userId });
+    const incomeId = `INC-ID ${Date.now()}`;
+
+    if (!userIncome) {
+      await incomeModel.create({
+        user: req.user.userId,
+        incomeAmount: monthBudget,
+        incomeId: incomeId,
+      });
+      return res.status(200).json({ message: "income created" });
+    }
+
+    userIncome.incomeAmount = monthBudget;
+    userIncome.incomeId = incomeId;
+    await userIncome.save();
+
+    return res.status(200).json({
+      message: "income stored successfully",
+      data: { userIncome },
     });
-    return res
-      .status(200)
-      .json({ message: "income stored successfully", data: income });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ message: "Server error" });
   }
 };

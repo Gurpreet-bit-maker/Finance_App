@@ -1,36 +1,36 @@
 import axios from "axios";
-import React, { createContext } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-export let AuthContextVarible = createContext();
+import { createContext, useEffect, useState } from "react";
 
-let AuthContext = ({ children }) => {
-  let [user, setUser] = useState([]);
+export const AuthCreateVarible = createContext();
+
+const AuthContext = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let isUserLogin = async () => {
-      try {
-        let isLogin = await axios.get("https://finance-app-8ae6.onrender.com/transections", {
+  const isUserLogin = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:3000/api/user/transections",
+        {
           withCredentials: true,
-        });
-        setUser(isLogin.data);
-      } catch (error) {
-        setUser(null);
-        console.log(error.response);
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 2000);
-      }
-    };
+        },
+      );
+
+      console.log("this is authContext", res.data);
+      setUser(res.data);
+    } catch (error) {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     isUserLogin();
   }, []);
 
   return (
-    <AuthContextVarible.Provider value={{ user, loading, setUser }}>
+    <AuthCreateVarible.Provider value={{ user, setUser, loading, isUserLogin }}>
       {children}
-    </AuthContextVarible.Provider>
+    </AuthCreateVarible.Provider>
   );
 };
 

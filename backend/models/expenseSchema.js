@@ -39,6 +39,9 @@ let expenseSchema = new mongoose.Schema(
       default: "Cash",
     },
     note: String,
+    expensePercantage: {
+      type: Number,
+    },
     date: {
       type: Date,
       default: Date.now,

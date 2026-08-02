@@ -1,5 +1,10 @@
+import userSchema from "../../../models/userSchema.js";
 export const logout = async (req, res) => {
   try {
+    let user = await userSchema.findById(req.user.userId);
+    user.isVerify = false;
+    await user.save();
+
     res.clearCookie("token", {
       httpOnly: true,
       secure: true,
