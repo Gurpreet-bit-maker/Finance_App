@@ -1,16 +1,13 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import SubCategory from "../Components/Expense/SubCategory";
 import Category from "../Components/Expense/Category";
-import {
-  ArrowLeft,
-  CreditCard,
-  BadgeIndianRupee,
-  Banknote,
-} from "lucide-react";
+import { ExpenseVarible } from "../Context/expense/Expense";
+import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function ExpenseCreate() {
+  let { getDeshboardFunc } = useContext(ExpenseVarible);
   const navigate = useNavigate();
   const [amount, setAmount] = useState("");
   const [Subcategory, setSubcategory] = useState("");
@@ -28,12 +25,13 @@ function ExpenseCreate() {
         { amount, Subcategory, selectedCategory, paymentMode, expenseDate },
         { withCredentials: true },
       );
-      console.log(postExpense);
       setAmount("");
       setSubcategory("");
       setSelectedCategory("");
       setNote("");
       setExpenseDate("");
+      await getDeshboardFunc();
+      
     } catch (error) {
       console.log(error.response.data.message);
       alert(`${error.response.data.message}`);
@@ -41,7 +39,10 @@ function ExpenseCreate() {
   };
   console.log({ amount, Subcategory, selectedCategory });
   return (
-    <div className="flex flex-col gap-y-5 p-5">
+    <div
+      className="flex flex-col gap-y-5 p-5 pb-28"
+      style={{ paddingBottom: "100px" }}
+    >
       <div className="flex gap-x-5 items-center">
         <button
           onClick={() => navigate(-1)}
@@ -73,14 +74,6 @@ function ExpenseCreate() {
           outline-none px-16"
           />
         </div>
-
-        <button
-          onClick={createExpense}
-          className="mt-8 w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white
-        px-8 py-3 rounded-xl font-semibold transition-all duration-300"
-        >
-          Create Expense
-        </button>
       </div>
       {/* subCategory component */}
       <SubCategory
@@ -124,6 +117,13 @@ function ExpenseCreate() {
             ))}
           </select>
         </div>
+        <button
+          onClick={createExpense}
+          className=" w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white
+        px-8 py-3 rounded-xl font-semibold transition-all duration-300"
+        >
+          Create Expense
+        </button>
       </div>
     </div>
   );

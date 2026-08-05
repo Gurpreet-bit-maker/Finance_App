@@ -12,7 +12,7 @@ function AuthProtected() {
       </div>
     );
   }
-  console.log(user);
+  // console.log(user);
   if (!user) {
     return <Navigate to="/login" replace />;
   }

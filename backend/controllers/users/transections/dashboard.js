@@ -1,6 +1,7 @@
 import expenseModel from "../../../models/expenseSchema.js";
 import userSchema from "../../../models/userSchema.js";
 import incomeSchema from "../../../models/incomeSchema.js";
+
 import mongoose from "mongoose";
 export const transections = async (req, res) => {
   try {
@@ -37,19 +38,53 @@ export const transections = async (req, res) => {
             totalPercentage: { $sum: "$expensePercantage" },
           },
         },
+        {
+          $project: {
+            _id: 1,
+            totalSpent: 1,
+            totalPercentage: {
+              $round: ["$totalPercentage", 1],
+            },
+          },
+        },
       ]),
     ]);
     //* income schema code for deshboard top-bar card
-    // const expenseModelVarible = await expenseModel.find({
-    //   user: req.user.userId,
-    // });
-    // let { userAmount } = incomeSchema.userAmount;
     const userIncome = await incomeSchema.find({ user: req.user.userId });
     const incomeAmount = userIncome[0].incomeAmount;
     const totalSpent = category.reduce((acc, current) => {
       return acc + current.totalSpent;
     }, 0);
     const percentage = (totalSpent / incomeAmount) * 100;
+
+    // ! this is alll code for search page
+    // const [categoryWise] = await Promise.all([
+    //   expenseModel.aggregate([
+    //     {
+    //       $group: {
+    //         _id: { categorized: "$category" },
+    //         totalSpent: { $sum: "$finalAmount" },
+    //         parcantage: { $sum: "$expensePercantage" },
+    //       },
+    //     },
+    //   ]),
+    // ]);
+
+    // const expensesByCategory = categoryWise
+    //   .map(
+    //     (item) =>
+    //       `${item._id.categorized}, expenses: ${item.totalSpent}, parcantage: ${item.parcantage} aur muje `,
+    //   )
+    //   .join("\n");
+    //! last week all expenses prompt
+    // const expenseModelArr = await expenseModel.find({ user: req.user.userId });
+    // const lastWeekExpenses = expenseModelArr.filter((item) => {
+    //   const today = new Date();
+    //   const lastweek = new Date(today);
+    //   lastweek.setDate(today.getDate() - 7);
+    //   return item.date >= lastweek && item.date <= today;
+    // });
+    // console.log(lastWeekExpenses);
 
     //* sharable obj
     const purpleCardData = {
@@ -58,7 +93,7 @@ export const transections = async (req, res) => {
       expensesAmount: totalSpent,
       usedPercentage: percentage.toFixed(1),
     };
-    console.log(totalSpent);
+
     return res.json({
       message: "all transections and aggrigates",
       data: {

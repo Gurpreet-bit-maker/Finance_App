@@ -55,6 +55,7 @@ const IconComp = [
 ];
 
 function TransectionsHistory({ transectionsArr }) {
+  //* today date, month and year
   let thisMonth = new Date().toLocaleDateString("en-IN", {
     day: "numeric",
     month: "short",
@@ -67,26 +68,21 @@ function TransectionsHistory({ transectionsArr }) {
       month: "short",
       year: "numeric",
     });
-
     return expenseMonth.split(" ")[1] == thisMonth.split(" ")[1];
   });
 
   let expenseMonth = new Date().getMonth() - 1;
-
   let previewMonthExpenses = transectionsArr.filter((item) => {
     let expense = new Date(item.date).getMonth();
     return expense == expenseMonth;
   });
-
   let thisMonthTotal = thisMonthExpenses.reduce((acc, current) => {
     return acc + current.finalAmount;
   }, 0);
   let previewMonthTotal = previewMonthExpenses.reduce((acc, current) => {
     return acc + current.finalAmount;
   }, 0);
-
   let incrementRange;
-
   if (previewMonthTotal == 0 || thisMonthTotal == 0) {
     incrementRange = 0;
   } else {
@@ -134,24 +130,23 @@ function TransectionsHistory({ transectionsArr }) {
     monthDayType = 31;
   }
   const leftDays = monthDayType - Number(days);
-  // console.log(leftDays);
 
   return (
     <>
       <div className="bg-white rounded-3xl shadow-lg p-4 sm:p-6">
         {/* Heading */}
         <div className="flex items-center justify-between mb-5">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold">
             Recent Transactions
           </h1>
 
-          <button className="text-sm sm:text-base text-indigo-600 font-semibold hover:underline">
+          <button className="text-xs sm:text-sm text-indigo-600 font-semibold hover:underline">
             View All
           </button>
         </div>
 
         {/* Transactions */}
-        <div className="space-y-5">
+        <div className="space-y-4">
           {transectionsArr.map((item, index) => {
             const cate = IconComp.find((logo) => logo.name === item.category);
             const Icon = cate?.icon;
@@ -159,30 +154,30 @@ function TransectionsHistory({ transectionsArr }) {
             return (
               <div
                 key={index}
-                className="flex items-center justify-between bg-gray-50 rounded-3xl px-6 py-5 hover:shadow-md transition"
+                className="flex items-center justify-between rounded-2xl bg-gray-50 px-3 sm:px-5 py-3 sm:py-4 hover:shadow-md transition"
               >
                 {/* Left */}
-                <div className="flex items-center gap-5">
-                  <div className="w-16 h-16 rounded-2xl bg-white shadow flex items-center justify-center">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white shadow flex items-center justify-center shrink-0">
                     {Icon && (
                       <Icon
-                        size={30}
-                        className="text-green-600 bg-green-100 rounded-lg"
+                        size={22}
+                        className="text-green-600 bg-green-100 rounded-lg p-1"
                       />
                     )}
                   </div>
 
-                  <div>
-                    <h2 className="text-2xl font-semibold">
+                  <div className="min-w-0">
+                    <h2 className="text-base sm:text-lg font-semibold truncate">
                       {item.subCategory}
                     </h2>
 
-                    <div className="flex items-center gap-3 mt-1">
-                      <span className="border rounded-full px-3 py-1 text-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mt-1">
+                      <span className="border rounded-full px-2 py-0.5 text-xs w-fit">
                         {item.category}
                       </span>
 
-                      <span className="text-gray-500 text-sm">
+                      <span className="text-gray-500 text-xs sm:text-sm">
                         {new Date(item.date).toLocaleDateString("en-IN", {
                           day: "numeric",
                           month: "short",
@@ -194,44 +189,49 @@ function TransectionsHistory({ transectionsArr }) {
                 </div>
 
                 {/* Right */}
-                <div className="text-right">
-                  <h2 className="text-3xl font-bold">-₹{item.finalAmount}</h2>
+                <div className="text-right shrink-0">
+                  <h2 className="text-lg sm:text-2xl font-bold whitespace-nowrap">
+                    -₹{item.finalAmount}
+                  </h2>
                 </div>
               </div>
             );
           })}
         </div>
+
         <br />
       </div>
+
       <br />
-      {/*  */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      {/* Bottom Cards */}
+      <div className="grid grid-cols-2 gap-4 sm:gap-6">
         {/* Increment Card */}
-        <div className="bg-white rounded-3xl shadow-lg border border-gray-100 py-8 px-6 flex flex-col items-center">
-          <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center">
-            <TrendingUp className="text-green-600" size={28} />
+        <div className="bg-white rounded-3xl shadow-lg border border-gray-100 py-5 px-4 sm:py-8 sm:px-6 flex flex-col items-center">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-green-100 flex items-center justify-center">
+            <TrendingUp className="text-green-600" size={24} />
           </div>
 
-          <p className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-500 font-medium">
+          <p className="mt-3 text-sm sm:text-lg text-gray-500 font-medium text-center">
             vs Last Month
           </p>
 
-          <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold text-green-600">
+          <h2 className="mt-2 text-xl sm:text-3xl font-bold text-green-600">
             {incrementRange !== 0 ? incrementRange.toFixed(1) : "N/A"}%
           </h2>
         </div>
 
         {/* Days Left Card */}
-        <div className="bg-white rounded-3xl shadow-lg border border-gray-100 py-8 px-6 flex flex-col items-center">
-          <div className="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center">
-            <Calendar className="text-blue-600" size={28} />
+        <div className="bg-white rounded-3xl shadow-lg border border-gray-100 py-5 px-4 sm:py-8 sm:px-6 flex flex-col items-center">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-blue-100 flex items-center justify-center">
+            <Calendar className="text-blue-600" size={24} />
           </div>
 
-          <p className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-500 font-medium">
+          <p className="mt-3 text-sm sm:text-lg text-gray-500 font-medium text-center">
             Days Left
           </p>
 
-          <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold text-blue-600">
+          <h2 className="mt-2 text-xl sm:text-3xl font-bold text-blue-600">
             {leftDays} days
           </h2>
         </div>

@@ -24,12 +24,14 @@ app.use(express.urlencoded({ extended: true }));
 import signupRoute from "./routes/users/auth/signupRoute.js";
 import loginRoute from "./routes/users/auth/loginRoute.js";
 import transections from "./routes/users/transections/transectionRoute.js";
+import search from "./routes/users/transections/search.js";
 
 //! Routes
 // signup Route
 app.use("/", signupRoute);
 app.use("/", loginRoute);
 app.use("/", transections);
+app.use("/", search);
 
 // login Route
 // app.post("/user/login", async (req, res) => {

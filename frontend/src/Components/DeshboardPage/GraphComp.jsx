@@ -3,8 +3,18 @@ import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
 import { IndianRupee } from "lucide-react";
 import EmptyGraph from "./EmptyGraph";
 
-const COLORS = ["#EF4444", "#3B82F6", "#22C55E", "#F59E0B"];
-
+const COLORS = [
+  "#EF4444", // Red
+  "#3B82F6", // Blue
+  "#22C55E", // Green
+  "#F59E0B", // Amber
+  "#8B5CF6", // Violet
+  "#EC4899", // Pink
+  "#06B6D4", // Cyan
+  "#14B8A6", // Teal
+  "#F97316", // Orange
+  "#6366F1", // Indigo
+];
 export const MONTHS = [
   { num: 1, name: "Jan", days: 31 },
   { num: 2, name: "Feb", days: 28 },
@@ -27,36 +37,28 @@ function GraphComp({ graphArr }) {
     <div className="w-full rounded-3xl bg-white p-4 sm:p-5 shadow-lg">
       <div className="flex items-center justify-between gap-4">
         {/* Left - Chart */}
-        <div className="w-[180px] sm:w-[210px] md:w-[240px] h-[180px] sm:h-[210px] md:h-[240px] shrink-0">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={graphArr}
-                dataKey="totalSpent"
-                nameKey="category"
-                innerRadius={48}
-                outerRadius={82}
-              >
-                {graphArr.map((item, index) => (
-                  <Cell
-                    key={index}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
+        <div className="w-[180px] sm:w-[210px] md:w-[240px] h-[180px] sm:h-[210px] md:h-[240px] shrink-0 flex items-center justify-center">
+          <PieChart width={220} height={220}>
+            <Pie
+              data={graphArr}
+              dataKey="totalSpent"
+              nameKey="category"
+              innerRadius={48}
+              outerRadius={82}
+            >
+              {graphArr.map((item, index) => (
+                <Cell key={index} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
 
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+            <Tooltip />
+          </PieChart>
         </div>
 
         {/* Right */}
         <div className="flex-1 min-w-0">
           {graphArr.map((item, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-between py-2"
-            >
+            <div key={index} className="flex items-center justify-between py-2">
               {/* Left */}
               <div className="flex items-center gap-2 min-w-0">
                 <span

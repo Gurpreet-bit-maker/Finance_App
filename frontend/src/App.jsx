@@ -15,26 +15,31 @@ import AuthProtected from "./Components/AuthProtected";
 import AuthContext from "./Context/auth/AuthContext";
 import Setting from "./Pages/Setting";
 import ExpenseCreate from "./Pages/ExpenseCreate";
+import Expense from "./Context/expense/Expense";
+import Search from "./Pages/Search";
 
 function App() {
   return (
     <>
       <AuthContext>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/verifyotp" element={<OtpVerifyPage />} />
-            <Route path="/signup" element={<Signup />} />
+        <Expense>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/verifyotp" element={<OtpVerifyPage />} />
+              <Route path="/signup" element={<Signup />} />
 
-            {/* Protected Routes */}
-            <Route element={<AuthProtected />}>
-              <Route path="/" element={<Deshboard />} />
-              <Route path="/add" element={<ExpenseCreate />} />
-              <Route path="/setting" element={<Setting />} />
-            </Route>
-          </Routes>
-          <Navbar />
-        </BrowserRouter>
+              {/* Protected Routes */}
+              <Route element={<AuthProtected />}>
+                <Route path="/" element={<Deshboard />} />
+                <Route path="/add" element={<ExpenseCreate />} />
+                <Route path="/setting" element={<Setting />} />
+                <Route path="/search" element={<Search />} />
+              </Route>
+            </Routes>
+            <Navbar />
+          </BrowserRouter>
+        </Expense>
       </AuthContext>
     </>
   );

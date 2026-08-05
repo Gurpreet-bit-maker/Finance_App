@@ -4,37 +4,37 @@ function MonthlySummery({ MonthlySumArr }) {
   return (
     <div className="w-full rounded-3xl bg-gradient-to-r from-indigo-600 to-purple-600 p-5 sm:p-7 text-white shadow-2xl">
       {/* Top */}
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <p className="text-sm sm:text-base text-indigo-100">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <p className="text-xs sm:text-sm text-indigo-100">
             Total Spent This Month
           </p>
 
-          <h1 className="mt-2 break-words text-3xl font-bold sm:text-4xl md:text-5xl">
+          <h1 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-bold truncate">
             ₹{MonthlySumArr.expensesAmount}
           </h1>
         </div>
 
-        <div className="flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-white/20 backdrop-blur">
-          <span className="text-2xl sm:text-3xl font-bold">₹</span>
+        <div className="w-12 h-12 sm:w-16 sm:h-16 shrink-0 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center">
+          <span className="text-xl sm:text-3xl font-bold">₹</span>
         </div>
       </div>
 
       {/* Budget & Remaining */}
-      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm sm:text-base text-indigo-100">
-          Budget:{" "}
-          <span className="font-semibold text-white">
+      <div className="mt-6 flex items-center justify-between gap-4">
+        <div>
+          <p className="text-xs sm:text-sm text-indigo-100">Budget</p>
+          <p className="font-semibold text-sm sm:text-lg">
             ₹{MonthlySumArr.incomeAmount}
-          </span>
-        </p>
+          </p>
+        </div>
 
-        <p className="text-sm sm:text-base text-indigo-100">
-          Remaining:{" "}
-          <span className="font-semibold text-white">
+        <div className="text-right">
+          <p className="text-xs sm:text-sm text-indigo-100">Remaining</p>
+          <p className="font-semibold text-sm sm:text-lg">
             ₹{MonthlySumArr.reminderAmount}
-          </span>
-        </p>
+          </p>
+        </div>
       </div>
 
       {/* Progress Bar */}
@@ -48,19 +48,15 @@ function MonthlySummery({ MonthlySumArr }) {
       </div>
 
       {/* Bottom */}
-      <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-sm sm:text-base">
-            {MonthlySumArr.usedPercentage}{" "}
-            <Percent size={18} className="inline" /> Used
-          </span>
+      <div className="mt-6 flex items-center justify-between">
+        <div className="flex items-center gap-1 text-xs sm:text-sm">
+          <Percent size={14} />
+          <span>{MonthlySumArr.usedPercentage}% Used</span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Calendar size={18} />
-          <span className="text-sm sm:text-base">
-            {MonthlySumArr.leftDays} Days Left
-          </span>
+        <div className="flex items-center gap-1 text-xs sm:text-sm">
+          <Calendar size={14} />
+          <span>{MonthlySumArr.leftDays} Days Left</span>
         </div>
       </div>
     </div>
