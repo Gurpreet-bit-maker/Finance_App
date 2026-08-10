@@ -17,6 +17,11 @@ let incomeSchema = new mongoose.Schema(
       type: Number,
       require: true,
     },
+    reminderAmount: {
+      type: {
+        Number,
+      },
+    },
   },
   { timestamps: true },
 );

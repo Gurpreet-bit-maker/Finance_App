@@ -1,63 +1,236 @@
-import { ai } from "../../../config/Gemini.js";
 import expenseSchema from "../../../models/expenseSchema.js";
+
 export const generateAIResponse = async (req, res) => {
   try {
-    //* prompt search btn
-    // const { promptValue } = req.body;
-    // console.log(promptValue);
-    // if (!promptValue) {
-    //   return res.status(400).json({
-    //     error: "Prompt is required",
-    //   });
-    // }
-    //* Quick filter query
-    let { category, date } = req.query;
-    console.log(req.query);
-    // if (!category && !date)
-    //   return res.json({ message: "Food or Date required" });
+    let { category, thisMonth, thisWeek, overAmount } = req.query;
 
-    const expenses = await expenseSchema.find({ user: req.user.userId });
-    if (category) {
-      const foodExpenses = expenses.filter((item) => item.category == category);
-      console.log(foodExpenses);
-      return res
-        .status(201)
-        .json({ message: "successfully", expenses: foodExpenses });
-    }
-    if (date) {
-      const thisMonthExpenses = expenses.filter((item) => {
-        const monthNum = new Date().getMonth();
-        return new Date(item.date).getMonth() == monthNum;
+    console.log(req.query);
+
+    const expenses = await expenseSchema.find({
+      user: req.user.userId,
+    });
+
+    // =========================================================
+    // QUICK FILTER QUERY
+    // =========================================================
+
+    // Cannot select This Month and This Week together
+    if (thisMonth !== "" && thisWeek !== "") {
+      return res.status(400).json({
+        message: "Month and week cannot be selected at the same time.",
+        expenses: null,
       });
-      console.log(thisMonthExpenses);
+    }
+
+    // =========================================================
+    // THIS WEEK + OVER ₹2,000
+    // =========================================================
+
+    if (
+      overAmount !== "" &&
+      thisWeek !== "" &&
+      thisMonth === "" &&
+      category === ""
+    ) {
+      const lastWeekAndOverAmount = expenses.filter((item) => {
+        const today = new Date();
+        const lastWeek = new Date(today);
+
+        lastWeek.setDate(today.getDate() - 7);
+
+        return (
+          item.date >= lastWeek &&
+          item.date <= today &&
+          item.finalAmount >= 2000
+        );
+      });
+
       return res.json({
-        message: "This Month Expenses",
+        message: "Last Week and Over Amount of 2000",
+        expenses: lastWeekAndOverAmount,
+      });
+    }
+
+    // =========================================================
+    // THIS MONTH
+    // =========================================================
+
+    if (
+      category === "" &&
+      thisWeek === "" &&
+      overAmount === "" &&
+      thisMonth !== ""
+    ) {
+      const monthNum = new Date().getMonth();
+
+      const thisMonthExpenses = expenses.filter((item) => {
+        return new Date(item.date).getMonth() === monthNum;
+      });
+
+      return res.json({
+        message: "This Month expenses",
         expenses: thisMonthExpenses,
       });
     }
-    return res.json({ message: "All Transections", expenses: expenses });
 
-    // const allExpenses = expenses.map((item) => item.category);
-    // console.log(allExpenses);
+    // =========================================================
+    // OVER ₹2,000
+    // =========================================================
 
-    // const result = await ai.models.generateContent({
-    //   model: "gemini-3.5-flash-lite",
-    //   contents: promptValue,
-    // });
+    if (
+      category === "" &&
+      thisMonth === "" &&
+      thisWeek === "" &&
+      overAmount !== ""
+    ) {
+      const over2kExpenses = expenses.filter((item) => {
+        return item.finalAmount >= 2000;
+      });
+      console.log(over2kExpenses);
+      console.log([] == "");
 
-    // return res.json({
-    //   message: result.text,
-    // });
-  } catch (error) {
-    console.log("Gemini Error:", error);
-    console.log("Message:", error.message);
-
-    if (error.response) {
-      console.log(error.response.data);
+      return res.json({
+        message: "Over 2k expenses",
+        expenses: over2kExpenses,
+      });
     }
 
-    res.status(500).json({
-      error: error.message,
+    // =========================================================
+    // THIS MONTH + OVER ₹2,000
+    // =========================================================
+
+    if (
+      overAmount !== "" &&
+      thisMonth !== "" &&
+      thisWeek === "" &&
+      category === ""
+    ) {
+      const monthNum = new Date().getMonth();
+
+      const over2kExpensesOfThisMonth = expenses.filter((item) => {
+        return (
+          item.finalAmount >= 2000 &&
+          new Date(item.date).getMonth() === monthNum
+        );
+      });
+
+      return res.json({
+        message: "Over 2k Month",
+        expenses: over2kExpensesOfThisMonth,
+      });
+    }
+
+    // =========================================================
+    // CATEGORY + OVER ₹2,000
+    // =========================================================
+
+    if (
+      thisMonth === "" &&
+      thisWeek === "" &&
+      overAmount !== "" &&
+      category !== ""
+    ) {
+      const over2kExpensesWithCategory = expenses.filter((item) => {
+        return item.finalAmount >= 2000 && item.category === category;
+      });
+
+      return res.json({
+        message: "Over 2k ,Food",
+        expenses: over2kExpensesWithCategory,
+      });
+    }
+
+    // =========================================================
+    // ONLY CATEGORY
+    // =========================================================
+
+    if (category !== "" && thisMonth === "" && thisWeek === "") {
+      const categoryExpenses = expenses.filter((item) => {
+        return item.category === category;
+      });
+
+      return res.json({
+        message: "Food expenses",
+        expenses: categoryExpenses,
+      });
+    }
+
+    // =========================================================
+    // THIS WEEK
+    // =========================================================
+
+    if (thisWeek !== "" && category === "" && thisMonth === "") {
+      const lastWeekExpenses = expenses.filter((item) => {
+        const today = new Date();
+        const lastWeek = new Date(today);
+
+        lastWeek.setDate(today.getDate() - 7);
+
+        return item.date >= lastWeek && item.date <= today;
+      });
+
+      return res.json({
+        message: "Last Week",
+        expenses: lastWeekExpenses,
+      });
+    }
+
+    // =========================================================
+    // CATEGORY + THIS WEEK
+    // =========================================================
+
+    if (category && thisWeek) {
+      const lastWeekAndCategory = expenses.filter((item) => {
+        const today = new Date();
+        const lastWeek = new Date(today);
+
+        lastWeek.setDate(today.getDate() - 7);
+
+        return (
+          item.date >= lastWeek &&
+          item.date <= today &&
+          item.category === category
+        );
+      });
+
+      return res.json({
+        message: "Week and Food",
+        expenses: lastWeekAndCategory,
+      });
+    }
+
+    // =========================================================
+    // CATEGORY + THIS MONTH
+    // =========================================================
+
+    if (thisMonth && category) {
+      const monthNum = new Date().getMonth();
+
+      const thisMonthAndCategoryExpenses = expenses.filter(
+        (item) =>
+          item.category === category &&
+          new Date(item.date).getMonth() === monthNum,
+      );
+
+      return res.json({
+        message: "Month and Food",
+        expenses: thisMonthAndCategoryExpenses,
+      });
+    }
+
+    // =========================================================
+    // NO FILTER
+    // =========================================================
+
+    return res.json({
+      message: "All Expenses",
+      expenses,
+    });
+  } catch (error) {
+    console.log("Search Error:", error.message);
+
+    return res.status(500).json({
+      message: "Something went wrong while searching expenses.",
     });
   }
 };

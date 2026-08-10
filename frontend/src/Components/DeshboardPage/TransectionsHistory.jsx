@@ -82,13 +82,13 @@ function TransectionsHistory({ transectionsArr }) {
   let previewMonthTotal = previewMonthExpenses.reduce((acc, current) => {
     return acc + current.finalAmount;
   }, 0);
+
   let incrementRange;
   if (previewMonthTotal == 0 || thisMonthTotal == 0) {
     incrementRange = 0;
   } else {
     incrementRange =
       ((thisMonthTotal - previewMonthTotal) / previewMonthTotal) * 100;
-    console.log(incrementRange.toFixed(1));
   }
 
   //* 31 and 30 monthName months logic
@@ -217,7 +217,9 @@ function TransectionsHistory({ transectionsArr }) {
           </p>
 
           <h2 className="mt-2 text-xl sm:text-3xl font-bold text-green-600">
-            {incrementRange !== 0 ? incrementRange.toFixed(1) : "N/A"}%
+            {incrementRange > 0
+              ? `+${incrementRange.toFixed(1)}%`
+              : `${incrementRange.toFixed(1)}%`}
           </h2>
         </div>
 

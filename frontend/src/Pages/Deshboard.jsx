@@ -23,6 +23,7 @@ function Deshboard() {
       console.log(error);
     }
   };
+console.log(MonthlySum);
 
   //* dashboard data api calls
   const getDashboard = async () => {

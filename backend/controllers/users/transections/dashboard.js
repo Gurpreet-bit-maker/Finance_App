@@ -1,9 +1,9 @@
 import expenseModel from "../../../models/expenseSchema.js";
 import userSchema from "../../../models/userSchema.js";
 import incomeSchema from "../../../models/incomeSchema.js";
-
 import mongoose from "mongoose";
-export const transections = async (req, res) => {
+
+const transections = async (req, res) => {
   try {
     const transections = await expenseModel.aggregate([
       { $sort: { date: -1 } },
@@ -50,12 +50,13 @@ export const transections = async (req, res) => {
       ]),
     ]);
     //* income schema code for deshboard top-bar card
-    const userIncome = await incomeSchema.find({ user: req.user.userId });
-    const incomeAmount = userIncome[0].incomeAmount;
+    const userIncomeSchema = await incomeSchema.find({ user: req.user.userId });
+    if (!userIncomeSchema) return;
     const totalSpent = category.reduce((acc, current) => {
       return acc + current.totalSpent;
     }, 0);
-    const percentage = (totalSpent / incomeAmount) * 100;
+    
+    const percentage = (totalSpent / userIncomeSchema.incomeAmount) * 100;
 
     // ! this is alll code for search page
     // const [categoryWise] = await Promise.all([
@@ -88,8 +89,8 @@ export const transections = async (req, res) => {
 
     //* sharable obj
     const purpleCardData = {
-      reminderAmount: incomeAmount - totalSpent,
-      incomeAmount: userIncome[0].incomeAmount,
+      reminderAmount: userIncomeSchema.incomeAmount - totalSpent,
+      incomeAmount: userIncomeSchema.incomeAmount,
       expensesAmount: totalSpent,
       usedPercentage: percentage.toFixed(1),
     };
@@ -107,3 +108,4 @@ export const transections = async (req, res) => {
     console.log(error);
   }
 };
+export default transections;
