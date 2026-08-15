@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const apiUrl = import.meta.env.VITE_SERVER
+
   let navigate = useNavigate();
   let {
     handleSubmit,
@@ -15,7 +17,7 @@ function Signup() {
   const signup = async (data) => {
     try {
       const userSignup = await axios.post(
-        "http://localhost:3000/api/auth/signup",
+        `${apiUrl}/api/auth/signup`,
         { data },
         { withCredentials: true },
       );
@@ -82,7 +84,6 @@ function Signup() {
             type="submit"
             className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
-            (
             {/* <div className="flex justify-center items-center" role="status">
               <span className="text-gray-400 tracking-wide">
                 Loading... &nbsp;
@@ -105,7 +106,7 @@ function Signup() {
               </svg>
               <span className="sr-only">Loading...</span>
             </div> */}
-            ) Signup
+            Signup
           </button>
         </form>
 

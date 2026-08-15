@@ -1,12 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Sparkles, IndianRupee } from "lucide-react";
+import { Sparkles, IndianRupee, ArrowLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import QuickFilter from "../Components/SearchPage/QuickFilter";
 import NoFoundExpense from "../Components/SearchPage/NoFoundExpense";
+import Navbar from "../Components/BottomNav/Navbar"
+import { useNavigate } from "react-router-dom";
+
 
 function SearchPage() {
   // STATES
+  const navigate = useNavigate();
+
+  const apiUrl = import.meta.env.VITE_SERVER
   const [promptValue, setPromptValue] = useState("");
   const [aiResponse, setAiResponse] = useState("");
 
@@ -56,7 +62,7 @@ function SearchPage() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:3000/api/user/ai",
+        `${apiUrl}/api/user/ai`,
         {
           userPrompt: promptValue,
         },
@@ -82,7 +88,7 @@ function SearchPage() {
   const sendQuickFilter = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/user/search?category=${food}&thisMonth=${thisMonth}&thisWeek=${thisWeek}&overAmount=${over2k}`,
+        `${apiUrl}/api/user/search?category=${food}&thisMonth=${thisMonth}&thisWeek=${thisWeek}&overAmount=${over2k}`,
         {
           withCredentials: true,
         },
@@ -102,7 +108,7 @@ function SearchPage() {
 
       setErrorMsg(
         error.response?.data?.message ||
-          "Something went wrong while searching.",
+        "Something went wrong while searching.",
       );
     }
   };
@@ -133,6 +139,16 @@ function SearchPage() {
       {/* =========================
           AI SEARCH
       ========================= */}
+      <br />
+      <div className="flex gap-x-5 items-center">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 bg-white hover:bg-gray-100 transition"
+        >
+          <ArrowLeft size={24} />
+        </button>{" "}
+        <h1>Add Expense</h1>
+      </div>
       <br />
       <div>
         {/* Search Box */}
@@ -379,6 +395,8 @@ function SearchPage() {
         </div>
       </div>
       {filtereData.length === 0 && !errorMsg && <NoFoundExpense />}
+      <Navbar />
+
     </div>
   );
 }

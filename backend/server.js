@@ -4,15 +4,15 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
 import connectionDb from "./config/lib.js";
+
 const app = express();
 connectionDb();
 
 // dotenv & middlewares
 app.use(
   cors({
-    origin: true,
+    origin: "https://finance-app-six-blond.vercel.app",
     credentials: true,
   }),
 );
@@ -172,7 +172,7 @@ app.use("/", search);
 // USER ROUTES
 
 // server
-let PORT = 3000;
+let PORT = process.env.SERVER_API;
 app.listen(PORT, () => {
   console.log(`listning server on ${PORT}`);
 });

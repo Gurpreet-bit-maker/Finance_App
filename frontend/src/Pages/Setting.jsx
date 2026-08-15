@@ -1,9 +1,15 @@
 import React, { useContext, useState } from "react";
-import { User } from "lucide-react";
+import { User, ArrowLeft } from "lucide-react";
 import axios from "axios";
 import ExportsFile from "../Components/SettingPage/ExportsFile";
+import Navbar from "../Components/BottomNav/Navbar"
 import { ExpenseVarible } from "../Context/expense/Expense";
+import { useNavigate } from "react-router-dom";
+
 function Setting() {
+  const apiUrl = import.meta.env.VITE_SERVER
+  const navigate = useNavigate();
+
   let { userInfo } = useContext(ExpenseVarible);
   const [monthBudget, setBudget] = useState(0);
   console.log(userInfo);
@@ -11,7 +17,7 @@ function Setting() {
   const postMonthlyBudget = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/user/create-income",
+        `${apiUrl}/api/user/create-income`,
         { monthBudget },
         { withCredentials: true },
       );
@@ -21,9 +27,20 @@ function Setting() {
       console.log(error.response.data.message);
     }
   };
+  // let name = $('123');
+  // console.log(name);
 
   return (
     <>
+      <div className="flex gap-x-5 items-center">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 bg-white hover:bg-gray-100 transition"
+        >
+          <ArrowLeft size={24} />
+        </button>{" "}
+        <h1>Add Expense</h1>
+      </div>
       <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 my-5 ml-2">
         Setting
       </h1>
@@ -42,7 +59,7 @@ function Setting() {
           <div className="flex-shrink-0">
             <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-700 flex items-center justify-center shadow-lg">
               <span className="text-3xl sm:text-4xl font-bold text-white">
-                {userInfo.slice(0,1)}
+                {userInfo.slice(0, 1)}
               </span>
             </div>
           </div>
@@ -94,6 +111,8 @@ function Setting() {
       <div style={{ paddingBottom: "100px" }}>
         <ExportsFile />
       </div>
+      <Navbar />
+
     </>
   );
 }

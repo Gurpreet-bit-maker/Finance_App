@@ -2,7 +2,10 @@ import React, { createContext, useEffect, useState } from "react";
 export const ExpenseVarible = createContext();
 import axios from "axios";
 
+
 function Expense({ children }) {
+  const apiUrl = import.meta.env.VITE_SERVER
+  console.log(apiUrl)
   const [transection, setTransections] = useState([]);
   const [graphData, setGraphData] = useState([]);
   const [userInfo, setUserInfo] = useState("");
@@ -12,7 +15,7 @@ function Expense({ children }) {
   const getDeshboardFunc = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:3000/api/user/transections",
+        `${apiUrl}/api/user/transections`,
         {
           withCredentials: true,
         },
@@ -28,7 +31,7 @@ function Expense({ children }) {
       setLoading(false);
     }
   };
- 
+
 
 
   useEffect(() => {

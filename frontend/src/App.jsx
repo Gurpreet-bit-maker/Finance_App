@@ -17,6 +17,7 @@ import Setting from "./Pages/Setting";
 import ExpenseCreate from "./Pages/ExpenseCreate";
 import Expense from "./Context/expense/Expense";
 import Search from "./Pages/Search";
+import Analitics from "./Pages/Analitics";
 
 function App() {
   return (
@@ -35,9 +36,10 @@ function App() {
                 <Route path="/add" element={<ExpenseCreate />} />
                 <Route path="/setting" element={<Setting />} />
                 <Route path="/search" element={<Search />} />
+                <Route path="/Analitics" element={<Analitics />} />
               </Route>
             </Routes>
-            <Navbar />
+
           </BrowserRouter>
         </Expense>
       </AuthContext>

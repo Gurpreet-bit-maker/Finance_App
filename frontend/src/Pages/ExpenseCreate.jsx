@@ -2,11 +2,14 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import SubCategory from "../Components/Expense/SubCategory";
 import Category from "../Components/Expense/Category";
+import Navbar from "../Components/BottomNav/Navbar"
 import { ExpenseVarible } from "../Context/expense/Expense";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function ExpenseCreate() {
+  const apiUrl = import.meta.env.VITE_SERVER
+
   let { getDeshboardFunc } = useContext(ExpenseVarible);
   const navigate = useNavigate();
   const [amount, setAmount] = useState("");
@@ -21,7 +24,7 @@ function ExpenseCreate() {
   const createExpense = async () => {
     try {
       const postExpense = await axios.post(
-        "http://localhost:3000/api/user/create-expense",
+        `${apiUrl}/api/user/create-expense`,
         { amount, Subcategory, selectedCategory, paymentMode, expenseDate },
         { withCredentials: true },
       );
@@ -31,7 +34,7 @@ function ExpenseCreate() {
       setNote("");
       setExpenseDate("");
       await getDeshboardFunc();
-      
+
     } catch (error) {
       console.log(error.response.data.message);
       alert(`${error.response.data.message}`);
@@ -125,6 +128,8 @@ function ExpenseCreate() {
           Create Expense
         </button>
       </div>
+      <Navbar />
+
     </div>
   );
 }

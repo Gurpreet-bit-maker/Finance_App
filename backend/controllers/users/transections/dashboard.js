@@ -3,7 +3,7 @@ import userSchema from "../../../models/userSchema.js";
 import incomeSchema from "../../../models/incomeSchema.js";
 import mongoose from "mongoose";
 
-const transections = async (req, res) => {
+export const transections = async (req, res) => {
   try {
     const transections = await expenseModel.aggregate([
       { $sort: { date: -1 } },
@@ -11,6 +11,7 @@ const transections = async (req, res) => {
 
     // console.log(transections);
     const userProfile = await userSchema.findById(req.user.userId);
+
     const { name } = userProfile;
     // data
     const now = new Date();
@@ -50,47 +51,19 @@ const transections = async (req, res) => {
       ]),
     ]);
     //* income schema code for deshboard top-bar card
-    const userIncomeSchema = await incomeSchema.find({ user: req.user.userId });
-    if (!userIncomeSchema) return;
+    const budgetSchema = await incomeSchema.findOne({ user: req.user.userId });
+
+    if (!budgetSchema) return;
+    console.log(budgetSchema);
     const totalSpent = category.reduce((acc, current) => {
       return acc + current.totalSpent;
     }, 0);
-    
-    const percentage = (totalSpent / userIncomeSchema.incomeAmount) * 100;
-
-    // ! this is alll code for search page
-    // const [categoryWise] = await Promise.all([
-    //   expenseModel.aggregate([
-    //     {
-    //       $group: {
-    //         _id: { categorized: "$category" },
-    //         totalSpent: { $sum: "$finalAmount" },
-    //         parcantage: { $sum: "$expensePercantage" },
-    //       },
-    //     },
-    //   ]),
-    // ]);
-
-    // const expensesByCategory = categoryWise
-    //   .map(
-    //     (item) =>
-    //       `${item._id.categorized}, expenses: ${item.totalSpent}, parcantage: ${item.parcantage} aur muje `,
-    //   )
-    //   .join("\n");
-    //! last week all expenses prompt
-    // const expenseModelArr = await expenseModel.find({ user: req.user.userId });
-    // const lastWeekExpenses = expenseModelArr.filter((item) => {
-    //   const today = new Date();
-    //   const lastweek = new Date(today);
-    //   lastweek.setDate(today.getDate() - 7);
-    //   return item.date >= lastweek && item.date <= today;
-    // });
-    // console.log(lastWeekExpenses);
+    const percentage = (totalSpent / budgetSchema.incomeAmount) * 100;
 
     //* sharable obj
     const purpleCardData = {
-      reminderAmount: userIncomeSchema.incomeAmount - totalSpent,
-      incomeAmount: userIncomeSchema.incomeAmount,
+      reminderAmount: budgetSchema.incomeAmount - totalSpent,
+      incomeAmount: budgetSchema.incomeAmount,
       expensesAmount: totalSpent,
       usedPercentage: percentage.toFixed(1),
     };
@@ -108,4 +81,3 @@ const transections = async (req, res) => {
     console.log(error);
   }
 };
-export default transections;

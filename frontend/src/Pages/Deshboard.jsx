@@ -7,14 +7,19 @@ import { ExpenseVarible } from "../Context/expense/Expense";
 import GraphComp from "../Components/DeshboardPage/GraphComp";
 import TransectionsHistory from "../Components/DeshboardPage/TransectionsHistory";
 import MonthlySummery from "../Components/DeshboardPage/MonthlySummery";
+import Navbar from "../Components/BottomNav/Navbar"
+
+
 
 function Deshboard() {
+  const apiUrl = import.meta.env.VITE_SERVER
+
   let navigate = useNavigate();
   let { transection, MonthlySum, graphData, userInfo, getDeshboardFunc } =
     useContext(ExpenseVarible);
   const logout = async () => {
     try {
-      const logout = await axios.get("http://localhost:3000/api/auth/logout", {
+      const logout = await axios.get(`${apiUrl}/api/auth/logout`,{}, {
         withCredentials: true,
       });
       console.log(logout);
@@ -23,7 +28,7 @@ function Deshboard() {
       console.log(error);
     }
   };
-console.log(MonthlySum);
+  console.log(MonthlySum);
 
   //* dashboard data api calls
   const getDashboard = async () => {
@@ -62,6 +67,7 @@ console.log(MonthlySum);
       <br />
       {/* transections */}
       <TransectionsHistory transectionsArr={transection} />
+      <Navbar />
     </div>
   );
 }

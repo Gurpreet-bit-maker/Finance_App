@@ -2,6 +2,13 @@ import userSchema from "../../../models/userSchema.js";
 export const logout = async (req, res) => {
   try {
     let user = await userSchema.findById(req.user.userId);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+    
     user.isVerify = false;
     await user.save();
 

@@ -4,12 +4,15 @@ import { createContext, useEffect, useState } from "react";
 export const AuthCreateVarible = createContext();
 
 const AuthContext = ({ children }) => {
+  const apiUrl = import.meta.env.VITE_SERVER
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const isUserLogin = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:3000/api/user/transections",
+        `${apiUrl}/api/user/transections`,
         {
           withCredentials: true,
         },

@@ -136,6 +136,9 @@ Keep the response short and easy to understand.
     ${expenses24HoursPhonePay}
     `;
 
+    let num = 21;
+    let dis = `${num} days`
+
       if (expenses24HoursPhonePay !== "") {
         const result = await ai.models.generateContent({
           model: "gemini-3.5-flash-lite",

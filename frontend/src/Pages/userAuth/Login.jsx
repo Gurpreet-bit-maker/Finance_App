@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 export default function Login() {
+  const apiUrl = import.meta.env.VITE_SERVER
+
   let navigate = useNavigate();
 
   let {
@@ -19,7 +21,7 @@ export default function Login() {
 
     try {
       const userLogin = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        `${apiUrl}/api/auth/login`,
         { data },
         { withCredentials: true },
       );

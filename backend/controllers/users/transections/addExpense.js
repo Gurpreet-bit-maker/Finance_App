@@ -21,15 +21,14 @@ export const addExpenseController = async (req, res) => {
     )
       return res.status(404).json({ message: "all feilds required" });
 
+      const today = new Date();
+      console.log(today);
+    const amountNumber = Number(amount);
     const userId = await User.findById(req.user.userId);
     const userIncome = await incomeSchema.findOne({ user: req.user.userId });
-    const persantage = (amount / userIncome.incomeAmount) * 100;
+    const persantage = (amountNumber / userIncome.incomeAmount) * 100;
 
-    // if (!userIncome) {
-    //   return res.status(400).json({ message: "first income genrate" });
-    // }
-    console.log("ths is",userIncome);
-    console.log("ths is",userIncome);
+    console.log(typeof persantage);
 
     const expense = await expenseModel.create({
       user: userId,
@@ -37,14 +36,14 @@ export const addExpenseController = async (req, res) => {
       category: selectedCategory,
       subCategory: Subcategory,
       paymentMode: paymentMode,
-      finalAmount: Number(amount),
+      finalAmount: amountNumber,
       note: note,
       date: expenseDate,
       expensePercantage: persantage.toFixed(1),
     });
 
     //* substrack amount into income amount
-    userIncome.reminderAmount = userIncome.incomeAmount - Number(amount);
+    userIncome.reminderAmount = userIncome.incomeAmount - amountNumber;
     await userIncome.save();
 
     return res.status(200).json({

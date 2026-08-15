@@ -4,6 +4,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { AuthCreateVarible } from "../../Context/auth/AuthContext";
 
 const OtpVerification = () => {
+  const apiUrl = import.meta.env.VITE_SERVER
+
   let { isUserLogin } = useContext(AuthCreateVarible);
   let navigate = useNavigate();
   let location = useLocation();
@@ -36,7 +38,7 @@ const OtpVerification = () => {
 
     try {
       const otpVerify = await axios.post(
-        "http://localhost:3000/api/auth/otp-verify",
+        `${apiUrl}/api/auth/otp-verify`,
         { otp: finalOtp, email: email },
         { withCredentials: true },
       );
