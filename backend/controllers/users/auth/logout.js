@@ -1,6 +1,7 @@
 import userSchema from "../../../models/userSchema.js";
 export const logout = async (req, res) => {
   try {
+    console.log("req.user:", req.user);
     let user = await userSchema.findById(req.user.userId);
 
     if (!user) {
@@ -8,7 +9,8 @@ export const logout = async (req, res) => {
         message: "User not found",
       });
     }
-    
+    console.log(user);
+
     user.isVerify = false;
     await user.save();
 

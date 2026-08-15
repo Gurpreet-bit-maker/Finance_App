@@ -6,7 +6,8 @@ import axios from "axios";
 
 export default function Login() {
   const apiUrl = import.meta.env.VITE_SERVER
-
+  // todo pending setErrorByApip
+  const [errorByApi, setErrorByApi] = useState("")
   let navigate = useNavigate();
 
   let {
@@ -69,11 +70,11 @@ export default function Login() {
               </p>
             )}
 
-            {/* {errorByApi && (
+            {errorByApi && (
               <p className="text-center text-red-600 text-sm font-medium">
                 {errorByApi}
               </p>
-            )} */}
+            )}
 
             <button
               type="submit"

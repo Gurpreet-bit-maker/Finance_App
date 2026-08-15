@@ -172,7 +172,8 @@ app.use("/", search);
 // USER ROUTES
 
 // server
-let PORT = process.env.SERVER_API;
+const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, () => {
-  console.log(`listning server on ${PORT}`);
+  console.log(`Listening server on ${PORT}`);
 });

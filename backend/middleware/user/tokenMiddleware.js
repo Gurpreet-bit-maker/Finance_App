@@ -10,7 +10,9 @@ export const isValidToken = (req, res, next) => {
       });
     }
     let decode = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("DECODE:", decode);
     req.user = decode;
+    console.log("REQ.USER:", req.user);
     next();
   } catch (error) {
     console.log(error);

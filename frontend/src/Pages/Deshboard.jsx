@@ -19,13 +19,13 @@ function Deshboard() {
     useContext(ExpenseVarible);
   const logout = async () => {
     try {
-      const logout = await axios.get(`${apiUrl}/api/auth/logout`,{}, {
+      const logout = await axios.get(`${apiUrl}/api/auth/logout`, {
         withCredentials: true,
       });
       console.log(logout);
       navigate("/login");
     } catch (error) {
-      console.log(error);
+      console.log(error.response?.data);
     }
   };
   console.log(MonthlySum);
