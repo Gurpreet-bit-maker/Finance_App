@@ -23,14 +23,14 @@ export default function Login() {
     try {
       const userLogin = await axios.post(
         `${apiUrl}/api/auth/login`,
-        { data },
+         data ,
         { withCredentials: true },
       );
       console.log(userLogin);
       reset();
       navigate("/verifyotp", { state: { email: data.email } });
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response);
       setErrorByApi(error.response.data.message);
     }
   };

@@ -68,7 +68,7 @@ function Signup() {
           {errors.phone && (
             <p className="text-sm text-red-400">{errors.phone.message}</p>
           )}
-          <div className=" relative border flex border border-gray-300 rounded-lg">
+          <div className="relative flex border border-gray-300 rounded-lg">
             <input
               type="password" //! password hide & show
               placeholder="Password"

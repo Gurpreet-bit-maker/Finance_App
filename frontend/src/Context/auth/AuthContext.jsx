@@ -18,16 +18,22 @@ const AuthContext = ({ children }) => {
         },
       );
 
-      console.log("this is authContext", res.data);
-      setUser(res.data);
+      console.log("this is authContext", res.data.data);
+      setUser(res.data.data);
     } catch (error) {
       setUser(null);
+      console.log(
+        "Auth Error:",
+        error.response?.data || error.message
+      );
     } finally {
       setLoading(false);
     }
   };
   useEffect(() => {
     isUserLogin();
+    console.log(user);
+
   }, []);
 
   return (

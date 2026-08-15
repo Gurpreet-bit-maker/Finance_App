@@ -43,8 +43,10 @@ const OtpVerification = () => {
         { withCredentials: true },
       );
       console.log(otpVerify.data);
-      console.log("this is otp page");
+      console.log("before");
       await isUserLogin();
+      console.log("after");
+      
       navigate("/");
     } catch (error) {
       console.log(error);

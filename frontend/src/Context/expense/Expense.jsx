@@ -5,7 +5,7 @@ import axios from "axios";
 
 function Expense({ children }) {
   const apiUrl = import.meta.env.VITE_SERVER
-  console.log(apiUrl)
+
   const [transection, setTransections] = useState([]);
   const [graphData, setGraphData] = useState([]);
   const [userInfo, setUserInfo] = useState("");

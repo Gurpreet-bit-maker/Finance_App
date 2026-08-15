@@ -13,6 +13,7 @@ export const transections = async (req, res) => {
     const userProfile = await userSchema.findById(req.user.userId);
 
     const { name } = userProfile;
+    // console.log(name);
     // data
     const now = new Date();
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -67,7 +68,7 @@ export const transections = async (req, res) => {
       expensesAmount: totalSpent,
       usedPercentage: percentage.toFixed(1),
     };
-
+console.log(purpleCardData)
     return res.json({
       message: "all transections and aggrigates",
       data: {

@@ -24,7 +24,7 @@ function ExpenseCreate() {
   const createExpense = async () => {
     try {
       const postExpense = await axios.post(
-        `${apiUrl}/api/user/create-expense`,
+        `http://localhost:8080/api/user/create-expense`,
         { amount, Subcategory, selectedCategory, paymentMode, expenseDate },
         { withCredentials: true },
       );

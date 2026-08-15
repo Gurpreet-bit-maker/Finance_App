@@ -17,7 +17,7 @@ function Setting() {
   const postMonthlyBudget = async () => {
     try {
       const res = await axios.post(
-        `${apiUrl}/api/user/create-income`,
+        `http://localhost:8080/api/user/create-income`,
         { monthBudget },
         { withCredentials: true },
       );
@@ -56,8 +56,8 @@ function Setting() {
         {/* Content */}
         <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-center md:items-start">
           {/* Avatar */}
-          <div className="flex-shrink-0">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-700 flex items-center justify-center shadow-lg">
+          <div className="shrink-0">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-linear-to-br from-violet-600 to-indigo-700 flex items-center justify-center shadow-lg">
               <span className="text-3xl sm:text-4xl font-bold text-white">
                 {userInfo.slice(0, 1)}
               </span>

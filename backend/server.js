@@ -12,7 +12,7 @@ connectionDb();
 // dotenv & middlewares
 app.use(
   cors({
-    origin: "https://finance-app-six-blond.vercel.app",
+    origin: "https://finance-app-six-blond.vercel.app/",
     credentials: true,
   }),
 );

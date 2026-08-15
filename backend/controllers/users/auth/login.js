@@ -3,7 +3,8 @@ import sendingOtp from "../../../utils/nodemailer.js";
 import bcrypt from "bcrypt";
 export const loginController = async (req, res) => {
   try {
-    const { email, password } = req.body.data;
+    const { email, password } = req.body;
+    console.log(email);
     if (!email || !password)
       return res.status(400).json({ message: "emain and password required" });
 

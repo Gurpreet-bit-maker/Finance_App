@@ -62,7 +62,7 @@ function SearchPage() {
       setLoading(true);
 
       const res = await axios.post(
-        `${apiUrl}/api/user/ai`,
+        `http://localhost:8080/api/user/ai`,
         {
           userPrompt: promptValue,
         },
@@ -88,7 +88,7 @@ function SearchPage() {
   const sendQuickFilter = async () => {
     try {
       const res = await axios.get(
-        `${apiUrl}/api/user/search?category=${food}&thisMonth=${thisMonth}&thisWeek=${thisWeek}&overAmount=${over2k}`,
+        `http://localhost:8080/api/user/search?category=${food}&thisMonth=${thisMonth}&thisWeek=${thisWeek}&overAmount=${over2k}`,
         {
           withCredentials: true,
         },
@@ -196,7 +196,7 @@ function SearchPage() {
             ))}
             {/* ai ui with markDown */}
             <div className="w-full max-w-full overflow-hidden rounded-xl bg-black/60 text-white p-4 text-sm leading-6 sm:p-5 sm:text-base">
-              <div className="prose prose-sm sm:prose-base max-w-none break-words">
+              <div className="prose prose-sm sm:prose-base max-w-none wrap-break-word">
                 <ReactMarkdown
                   components={{
                     p: ({ children }) => (
@@ -216,7 +216,7 @@ function SearchPage() {
                     ),
 
                     li: ({ children }) => (
-                      <li className="break-words">{children}</li>
+                      <li className="wrap-break-word">{children}</li>
                     ),
 
                     strong: ({ children }) => (
