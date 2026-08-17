@@ -14,11 +14,11 @@ export const transections = async (req, res) => {
     if (!userProfile) {
       return res.json({
         message: "User profile not found",
+        data: null,
       });
     }
     const { name } = userProfile;
 
-  
     const budgetSchema = await incomeSchema.findOne({ user: req.user.userId });
     if (!budgetSchema) {
       return res.json({

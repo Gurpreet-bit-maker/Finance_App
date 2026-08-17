@@ -17,9 +17,9 @@ const AuthContext = ({ children }) => {
           withCredentials: true,
         },
       );
+      console.log(res.data.data);
 
-      console.log("this is authContext", res.data.data);
-      setUser(res.data);
+      setUser(res.data.data || null);
     } catch (error) {
       setUser(null);
       console.log(
