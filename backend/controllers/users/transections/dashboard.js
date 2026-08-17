@@ -12,7 +12,7 @@ export const transections = async (req, res) => {
     const userProfile = await userSchema.findById(req.user.userId);
 
     if (!userProfile) {
-      return res.status(404).json({
+      return res.json({
         message: "User profile not found",
       });
     }
