@@ -18,7 +18,7 @@ function Signup() {
     try {
       const userSignup = await axios.post(
         `${apiUrl}/api/auth/signup`,
-        { data },
+        data,
         { withCredentials: true },
       );
       console.log(userSignup);

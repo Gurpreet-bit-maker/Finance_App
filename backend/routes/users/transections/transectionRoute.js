@@ -8,6 +8,6 @@ import { isValidToken } from "../../../middleware/user/tokenMiddleware.js";
 
 router.post("/api/user/create-income", isValidToken, incomeController);
 router.post("/api/user/create-expense", isValidToken, addExpenseController);
-router.get("/api/user/transections", isValidToken, transections);
+router.get("/api/user/dashboard", isValidToken, transections);
 
 export default router;

@@ -19,7 +19,7 @@ function Deshboard() {
     useContext(ExpenseVarible);
   const logout = async () => {
     try {
-      const logout = await axios.get(`http://localhost:8080/api/auth/logout`, {
+      const logout = await axios.get(`${apiUrl}/api/auth/logout`, {
         withCredentials: true,
       });
       console.log(logout);
@@ -28,7 +28,6 @@ function Deshboard() {
       console.log(error.response?.data);
     }
   };
-  console.log(MonthlySum);
 
   //* dashboard data api calls
   const getDashboard = async () => {

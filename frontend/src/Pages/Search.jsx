@@ -62,7 +62,7 @@ function SearchPage() {
       setLoading(true);
 
       const res = await axios.post(
-        `http://localhost:8080/api/user/ai`,
+        `${apiUrl}/api/user/ai`,
         {
           userPrompt: promptValue,
         },
@@ -88,7 +88,7 @@ function SearchPage() {
   const sendQuickFilter = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/user/search?category=${food}&thisMonth=${thisMonth}&thisWeek=${thisWeek}&overAmount=${over2k}`,
+        `${apiUrl}/api/user/search?category=${food}&thisMonth=${thisMonth}&thisWeek=${thisWeek}&overAmount=${over2k}`,
         {
           withCredentials: true,
         },

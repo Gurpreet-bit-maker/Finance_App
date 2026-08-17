@@ -18,20 +18,30 @@ export default function Login() {
   } = useForm();
 
   const loginFunc = async (data) => {
-    console.log(data);
+    console.log("FORM DATA:", data);
 
     try {
+      console.log("API CALL START");
+
       const userLogin = await axios.post(
         `${apiUrl}/api/auth/login`,
-         data ,
-        { withCredentials: true },
+        data,
+        { withCredentials: true }
       );
-      console.log(userLogin);
+      console.log("LOGIN SUCCESS:", userLogin.data);
       reset();
-      navigate("/verifyotp", { state: { email: data.email } });
+      navigate("/verifyotp", {
+        state: { email: data.email },
+      });
     } catch (error) {
-      console.log(error.response);
-      setErrorByApi(error.response.data.message);
+      console.log(
+        "LOGIN ERROR:",
+        error.response?.data || error.message
+      );
+
+      setErrorByApi(
+        error.response?.data?.message || "Something went wrong"
+      );
     }
   };
 

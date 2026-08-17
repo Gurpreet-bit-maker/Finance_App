@@ -12,14 +12,14 @@ const AuthContext = ({ children }) => {
   const isUserLogin = async () => {
     try {
       const res = await axios.get(
-        `${apiUrl}/api/user/transections`,
+        `${apiUrl}/api/user/dashboard`,
         {
           withCredentials: true,
         },
       );
 
       console.log("this is authContext", res.data.data);
-      setUser(res.data.data);
+      setUser(res.data);
     } catch (error) {
       setUser(null);
       console.log(

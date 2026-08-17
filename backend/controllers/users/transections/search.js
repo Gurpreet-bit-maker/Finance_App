@@ -4,7 +4,7 @@ export const generateAIResponse = async (req, res) => {
   try {
     let { category, thisMonth, thisWeek, overAmount } = req.query;
 
-    console.log(req.query);
+   
 
     const expenses = await expenseSchema.find({
       user: req.user.userId,

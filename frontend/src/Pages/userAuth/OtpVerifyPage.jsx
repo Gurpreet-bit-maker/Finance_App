@@ -44,9 +44,9 @@ const OtpVerification = () => {
       );
       console.log(otpVerify.data);
       console.log("before");
-      await isUserLogin();
-      console.log("after");
-      
+      const result = await isUserLogin();
+      console.log("after", result);
+
       navigate("/");
     } catch (error) {
       console.log(error);

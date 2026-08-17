@@ -9,16 +9,28 @@ export const transections = async (req, res) => {
       { $sort: { date: -1 } },
     ]);
 
-    console.log("TOKEN USER ID:", req.user.userId);
     const userProfile = await userSchema.findById(req.user.userId);
-    console.log("FOUND USER:", userProfile);
+
     if (!userProfile) {
       return res.status(404).json({
         message: "User profile not found",
       });
     }
-
     const { name } = userProfile;
+
+  
+    const budgetSchema = await incomeSchema.findOne({ user: req.user.userId });
+    if (!budgetSchema) {
+      return res.json({
+        message: "Income data not found",
+        data: {
+          purpleCard: null,
+          graph: null,
+          transectionHistory: null,
+          userName: name,
+        },
+      });
+    }
 
     // data
     const now = new Date();
@@ -58,15 +70,7 @@ export const transections = async (req, res) => {
       ]),
     ]);
     //* income schema code for deshboard top-bar card
-    const budgetSchema = await incomeSchema.findOne({ user: req.user.userId });
 
-    if (!budgetSchema) {
-      return res.status(404).json({
-        message: "Income data not found",
-      });
-    }
-
-    
     const totalSpent = category.reduce((acc, current) => {
       return acc + current.totalSpent;
     }, 0);
@@ -79,7 +83,7 @@ export const transections = async (req, res) => {
       expensesAmount: totalSpent,
       usedPercentage: percentage.toFixed(1),
     };
-    console.log(purpleCardData);
+    console.log("purplecheck. ", purpleCardData);
     return res.json({
       message: "all transections and aggrigates",
       data: {
@@ -91,5 +95,6 @@ export const transections = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json("server error from dashboards");
   }
 };

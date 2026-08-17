@@ -17,7 +17,7 @@ function Setting() {
   const postMonthlyBudget = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:8080/api/user/create-income`,
+        `${apiUrl}/api/user/create-income`,
         { monthBudget },
         { withCredentials: true },
       );
