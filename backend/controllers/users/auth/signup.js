@@ -3,8 +3,8 @@ import userSchema from "../../../models/userSchema.js";
 import sendingOtp from "../../../utils/nodemailer.js";
 
 export const signup = async (req, res) => {
-  let { name, email, phone, password } = req.body.data;
-  console.log(password);
+  let { name, email, phone, password } = req.body;
+  console.log(req.body);
   let encryptPassword = await bcryptFunction(password);
   if (!encryptPassword) return res.status(500).json("not encrypted password");
 

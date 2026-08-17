@@ -9,11 +9,17 @@ export const transections = async (req, res) => {
       { $sort: { date: -1 } },
     ]);
 
-    // console.log(transections);
+    console.log("TOKEN USER ID:", req.user.userId);
     const userProfile = await userSchema.findById(req.user.userId);
+    console.log("FOUND USER:", userProfile);
+    if (!userProfile) {
+      return res.status(404).json({
+        message: "User profile not found",
+      });
+    }
 
     const { name } = userProfile;
-    // console.log(name);
+
     // data
     const now = new Date();
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -54,8 +60,13 @@ export const transections = async (req, res) => {
     //* income schema code for deshboard top-bar card
     const budgetSchema = await incomeSchema.findOne({ user: req.user.userId });
 
-    if (!budgetSchema) return;
-    console.log(budgetSchema);
+    if (!budgetSchema) {
+      return res.status(404).json({
+        message: "Income data not found",
+      });
+    }
+
+    
     const totalSpent = category.reduce((acc, current) => {
       return acc + current.totalSpent;
     }, 0);
@@ -68,7 +79,7 @@ export const transections = async (req, res) => {
       expensesAmount: totalSpent,
       usedPercentage: percentage.toFixed(1),
     };
-console.log(purpleCardData)
+    console.log(purpleCardData);
     return res.json({
       message: "all transections and aggrigates",
       data: {
