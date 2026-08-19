@@ -5,8 +5,19 @@ import mongoose from "mongoose";
 
 export const transections = async (req, res) => {
   try {
+    const userId = new mongoose.Types.ObjectId(req.user.userId);
+
     const transections = await expenseModel.aggregate([
-      { $sort: { date: -1 } },
+      {
+        $match: {
+          user: userId,
+        },
+      },
+      {
+        $sort: {
+          date: -1,
+        },
+      },
     ]);
 
     const userProfile = await userSchema.findById(req.user.userId);

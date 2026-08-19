@@ -21,14 +21,12 @@ export const addExpenseController = async (req, res) => {
     )
       return res.status(404).json({ message: "all feilds required" });
 
-      const today = new Date();
-      
+    const today = new Date();
+
     const amountNumber = Number(amount);
-    const userId = await User.findById(req.user.userId);
+    const userId = req.user.userId;
     const userIncome = await incomeSchema.findOne({ user: req.user.userId });
     const persantage = (amountNumber / userIncome.incomeAmount) * 100;
-
-    
 
     const expense = await expenseModel.create({
       user: userId,

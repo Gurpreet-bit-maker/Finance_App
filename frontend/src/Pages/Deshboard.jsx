@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { AuthCreateVarible } from "../Context/auth/AuthContext";
 import { ExpenseVarible } from "../Context/expense/Expense";
 import GraphComp from "../Components/DeshboardPage/GraphComp";
 import TransectionsHistory from "../Components/DeshboardPage/TransectionsHistory";
