@@ -12,7 +12,7 @@ connectionDb();
 // dotenv & middlewares
 app.use(
   cors({
-    origin: "https://finance-app-six-blond.vercel.app/",
+    origin: "https://finance-app-five-snowy.vercel.app",
     credentials: true,
   }),
 );
@@ -172,7 +172,7 @@ app.use("/", search);
 // USER ROUTES
 
 // server
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
   console.log(`Listening server on ${PORT}`);

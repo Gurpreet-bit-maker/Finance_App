@@ -14,11 +14,16 @@ export const transections = async (req, res) => {
     if (!userProfile) {
       return res.json({
         message: "User profile not found",
-        data: null,
+        data: {
+          purpleCard: null,
+          graph: null,
+          transectionHistory: null,
+          userName: name,
+        },
       });
     }
     const { name } = userProfile;
-
+    console.log(req.user.userId);
     const budgetSchema = await incomeSchema.findOne({ user: req.user.userId });
     if (!budgetSchema) {
       return res.json({
@@ -83,7 +88,7 @@ export const transections = async (req, res) => {
       expensesAmount: totalSpent,
       usedPercentage: percentage.toFixed(1),
     };
-    console.log("purplecheck. ", purpleCardData);
+
     return res.json({
       message: "all transections and aggrigates",
       data: {

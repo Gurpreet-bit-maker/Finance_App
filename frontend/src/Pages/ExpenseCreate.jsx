@@ -24,7 +24,7 @@ function ExpenseCreate() {
   const createExpense = async () => {
     try {
       const postExpense = await axios.post(
-        `${apiUrl}/api/user/create-expense`,
+        `http://localhost:8080/api/user/create-expense`,
         { amount, Subcategory, selectedCategory, paymentMode, expenseDate },
         { withCredentials: true },
       );
@@ -40,6 +40,12 @@ function ExpenseCreate() {
       alert(`${error.response.data.message}`);
     }
   };
+  //* set today date for expense create
+  const today = new Date().toISOString().split("T")[0];
+  const oneMonth = new Date()
+  oneMonth.setMonth(oneMonth.getMonth() - 1)
+  const lastMonth = oneMonth.toISOString().split("T")[0]
+
   console.log({ amount, Subcategory, selectedCategory });
   return (
     <div
@@ -97,6 +103,8 @@ function ExpenseCreate() {
 
           <input
             type="date"
+            max={today}
+            min={lastMonth}
             value={expenseDate}
             className="w-full border border-gray-300 rounded-2xl px-5 py-4 text-lg outline-none focus:ring-2 focus:ring-indigo-500"
             onChange={(e) => setExpenseDate(e.target.value)}

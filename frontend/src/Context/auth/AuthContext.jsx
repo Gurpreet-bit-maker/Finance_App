@@ -17,7 +17,6 @@ const AuthContext = ({ children }) => {
           withCredentials: true,
         },
       );
-      console.log(res.data.data);
 
       setUser(res.data.data || null);
     } catch (error) {
@@ -30,6 +29,7 @@ const AuthContext = ({ children }) => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     isUserLogin();
     console.log(user);

@@ -17,14 +17,14 @@ function Setting() {
   const postMonthlyBudget = async () => {
     try {
       const res = await axios.post(
-        `${apiUrl}/api/user/create-income`,
-        { monthBudget },
+        `http://localhost:8000/api/user/create-income`,
+        { monthBudget: monthBudget },
         { withCredentials: true },
       );
 
       console.log(res.data);
     } catch (error) {
-      console.log(error.response.data.message);
+      console.log(error.response.data);
     }
   };
   // let name = $('123');

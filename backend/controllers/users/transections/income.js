@@ -2,7 +2,8 @@ import incomeModel from "../../../models/incomeSchema.js";
 
 export const incomeController = async (req, res) => {
   try {
-    let monthBudget = req.body.monthBudget;
+    let { monthBudget } = req.body;
+
     const monthlyBudget = Number(monthBudget);
 
     if (!monthBudget)
@@ -23,11 +24,10 @@ export const incomeController = async (req, res) => {
     userIncome.incomeAmount = monthlyBudget;
     userIncome.incomeId = incomeId;
     await userIncome.save();
-    
 
     return res.status(200).json({
       message: "income stored successfully",
-      data: { userIncome },
+      userIncome,
     });
   } catch (error) {
     console.log(error);

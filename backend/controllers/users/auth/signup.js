@@ -4,14 +4,15 @@ import sendingOtp from "../../../utils/nodemailer.js";
 
 export const signup = async (req, res) => {
   let { name, email, phone, password } = req.body;
- 
+  console.log(req.body);
   let encryptPassword = await bcryptFunction(password);
   if (!encryptPassword) return res.status(500).json("not encrypted password");
+  console.log(req.body);
 
   //* otp genrate and send to email
   let randomNum = Math.floor(Math.random() * 900000) + 100000;
   console.log(randomNum);
-  await sendingOtp(email, randomNum);
+  // await sendingOtp(email, randomNum);
 
   try {
     let signupStore = await userSchema.create({

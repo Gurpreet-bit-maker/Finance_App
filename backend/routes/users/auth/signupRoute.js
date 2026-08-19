@@ -5,6 +5,6 @@ import { verifyOtp } from "../../../controllers/users/auth/verifyOtp.js";
 
 // auth routes
 router.post("/api/auth/signup", signup);
-router.post("/api/auth/otp-verify", verifyOtp);
+router.post("/api/auth/verify-otp", verifyOtp);
 
 export default router;
