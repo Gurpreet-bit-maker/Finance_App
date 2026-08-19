@@ -18,7 +18,7 @@ export const loginController = async (req, res) => {
     //* sending otp on email
     let randomNum = Math.floor(Math.random() * 900000) + 100000;
 
-    await sendingOtp(email, randomNum);
+    // await sendingOtp(email, randomNum);
 
     user.otp = randomNum;
     user.isVerify = false;

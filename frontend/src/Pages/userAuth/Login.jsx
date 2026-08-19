@@ -23,12 +23,12 @@ export default function Login() {
     try {
       console.log("API CALL START");
 
-      const userLogin = await axios.post(
+      const res = await axios.post(
         `${apiUrl}/api/auth/login`,
         data,
         { withCredentials: true }
       );
-      console.log("LOGIN SUCCESS:", userLogin.data);
+      console.log("LOGIN SUCCESS:", res.data);
       reset();
       navigate("/verifyotp", {
         state: { email: data.email },
