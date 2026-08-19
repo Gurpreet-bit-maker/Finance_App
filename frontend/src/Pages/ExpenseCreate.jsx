@@ -34,7 +34,8 @@ function ExpenseCreate() {
       setNote("");
       setExpenseDate("");
       await getDeshboardFunc();
-
+      // alert(`Expense Created Successfully ${amount}`)
+      navigate("/")
     } catch (error) {
       console.log(error.response.data.message);
       alert(`${error.response.data.message}`);
@@ -84,15 +85,16 @@ function ExpenseCreate() {
           />
         </div>
       </div>
-      {/* subCategory component */}
-      <SubCategory
-        selectedCategory={selectedCategory}
-        setSubcategory={setSubcategory}
-      />
+
       {/* category */}
       <Category
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
+      />
+      {/* subCategory component */}
+      <SubCategory
+        selectedCategory={selectedCategory}
+        setSubcategory={setSubcategory}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Date */}

@@ -8,6 +8,7 @@ import Login from "./Pages/userAuth/Login";
 import Signup from "./Pages/userAuth/Signup";
 import OtpVerifyPage from "./Pages/userAuth/OtpVerifyPage";
 import Deshboard from "./Pages/Deshboard";
+import ScrollToTop from "./Components/ScrollToTop"
 import Navbar from "./Components/BottomNav/Navbar";
 
 // authentication
@@ -25,6 +26,7 @@ function App() {
       <AuthContext>
         <Expense>
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/verifyotp" element={<OtpVerifyPage />} />

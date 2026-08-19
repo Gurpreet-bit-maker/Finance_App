@@ -12,7 +12,7 @@ export const signup = async (req, res) => {
   //* otp genrate and send to email
   let randomNum = Math.floor(Math.random() * 900000) + 100000;
   console.log(randomNum);
-  // await sendingOtp(email, randomNum);
+  await sendingOtp(email, randomNum);
 
   try {
     let signupStore = await userSchema.create({
