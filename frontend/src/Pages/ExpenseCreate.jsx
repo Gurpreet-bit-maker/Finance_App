@@ -2,16 +2,17 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import SubCategory from "../Components/Expense/SubCategory";
 import Category from "../Components/Expense/Category";
-import Navbar from "../Components/BottomNav/Navbar"
+import Navbar from "../Components/BottomNav/Navbar";
 import { ExpenseVarible } from "../Context/expense/Expense";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function ExpenseCreate() {
-  const apiUrl = import.meta.env.VITE_SERVER
+  const apiUrl = import.meta.env.VITE_SERVER;
 
   let { getDeshboardFunc } = useContext(ExpenseVarible);
   const navigate = useNavigate();
+
   const [amount, setAmount] = useState("");
   const [Subcategory, setSubcategory] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Food");
@@ -25,81 +26,106 @@ function ExpenseCreate() {
     try {
       const postExpense = await axios.post(
         `${apiUrl}/api/user/create-expense`,
-        { amount, Subcategory, selectedCategory, paymentMode, expenseDate },
+        {
+          amount,
+          Subcategory,
+          selectedCategory,
+          paymentMode,
+          expenseDate,
+        },
         { withCredentials: true },
       );
+
       setAmount("");
       setSubcategory("");
       setSelectedCategory("");
       setNote("");
       setExpenseDate("");
+
       await getDeshboardFunc();
-      // alert(`Expense Created Successfully ${amount}`)
-      navigate("/")
+
+      navigate("/");
     } catch (error) {
       console.log(error.response.data.message);
       alert(`${error.response.data.message}`);
     }
   };
-  //* set today date for expense create
-  const today = new Date().toISOString().split("T")[0];
-  const oneMonth = new Date()
-  oneMonth.setMonth(oneMonth.getMonth() - 1)
-  const lastMonth = oneMonth.toISOString().split("T")[0]
 
-  console.log({ amount, Subcategory, selectedCategory });
+  //* Set today date for expense create
+  const today = new Date().toISOString().split("T")[0];
+
+  const oneMonth = new Date();
+  oneMonth.setMonth(oneMonth.getMonth() - 1);
+
+  const lastMonth = oneMonth.toISOString().split("T")[0];
+
+  console.log({
+    amount,
+    Subcategory,
+    selectedCategory,
+  });
+
   return (
     <div
-      className="  flex flex-col gap-y-5 p-5 pb-28 lg:mx-auto lg:max-w-6xl xl:max-w-7xl"
+      className="flex flex-col gap-y-5 p-5 pb-28 lg:mx-auto lg:max-w-6xl xl:max-w-7xl"
       style={{ paddingBottom: "100px" }}
     >
-      <div className="flex gap-x-5 items-center">
+      {/* Back Button */}
+      <div className="mb-1 flex items-center gap-x-5">
         <button
           onClick={() => navigate(-1)}
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 bg-white hover:bg-gray-100 transition"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-300 bg-white transition hover:bg-gray-100"
         >
-          <ArrowLeft size={24} />
-        </button>{" "}
-        <h1>Add Expense</h1>
+          <ArrowLeft size={21} />
+        </button>
+
+        <h1 className="text-lg font-semibold text-gray-800">
+          Add Expense
+        </h1>
       </div>
-      <div className="w-full max-w-4xl mx-auto bg-white border border-gray-200 rounded-3xl shadow-lg p-5 sm:p-7 md:p-8">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6">
+
+      {/* Amount Card */}
+      <div className="mx-auto w-full max-w-4xl rounded-3xl border border-gray-200 bg-white p-5 shadow-lg sm:p-6 md:p-7">
+        <h1 className="mb-5 text-xl font-bold text-gray-900 sm:text-2xl">
           Amount <span className="text-red-500">*</span>
         </h1>
 
         <div className="relative">
           {/* Currency Icon */}
-          <span className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-3xl sm:text-4xl">
+          <span className="absolute left-5 top-1/2 -translate-y-1/2 text-2xl text-gray-400 sm:text-3xl">
             ₹
           </span>
 
-          {/* Input */}
+          {/* Amount Input */}
           <input
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0.00"
-            className="w-full h-24 sm:h-28 rounded-3xl border-4 border-indigo-600 bg-white
-          text-center text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900
-          outline-none px-16"
+            className="h-20 w-full rounded-2xl border-4 border-indigo-600 bg-white px-14
+            text-center text-3xl font-bold text-gray-900 outline-none
+            sm:h-24 sm:text-4xl md:text-5xl"
           />
         </div>
       </div>
 
-      {/* category */}
+      {/* Category */}
       <Category
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      {/* subCategory component */}
+
+      {/* Sub Category */}
       <SubCategory
         selectedCategory={selectedCategory}
         setSubcategory={setSubcategory}
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+      {/* Date + Payment */}
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {/* Date */}
-        <div className="border border-gray-200 rounded-3xl p-6 bg-white shadow-sm">
-          <label className="block text-md font-semibold text-gray-700 mb-5">
+        <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+          <label className="mb-4 block text-sm font-semibold text-gray-700">
             Date
           </label>
 
@@ -108,21 +134,26 @@ function ExpenseCreate() {
             max={today}
             min={lastMonth}
             value={expenseDate}
-            className="w-full border border-gray-300 rounded-2xl px-5 py-4 text-lg outline-none focus:ring-2 focus:ring-indigo-500"
             onChange={(e) => setExpenseDate(e.target.value)}
+            className="w-full rounded-2xl border border-gray-300 px-4 py-3 text-base
+            outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
 
         {/* Payment */}
-        <div className="border border-gray-200 rounded-3xl p-6 bg-white shadow-sm">
-          <label className="block text-md font-semibold text-gray-700 mb-5 ">
+        <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+          <label className="mb-4 block text-sm font-semibold text-gray-700">
             Payment
           </label>
 
           <select
+            value={paymentMode}
             onChange={(e) => setPaymentMode(e.target.value)}
-            className="w-full border border-gray-300 rounded-2xl px-5 py-4 text-lg outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full rounded-2xl border border-gray-300 px-4 py-3 text-base
+            outline-none focus:ring-2 focus:ring-indigo-500"
           >
+            <option value="">Select Payment</option>
+
             {paymentModeObj.map((item, index) => (
               <option key={index} value={item}>
                 {item}
@@ -130,17 +161,20 @@ function ExpenseCreate() {
             ))}
           </select>
         </div>
+
+        {/* Create Button */}
         <button
           onClick={createExpense}
-          className=" w-full sm:w-auto md:col-span-2 md:justify-self-center
-  bg-indigo-600 hover:bg-indigo-700 text-white
-  px-8 py-3 rounded-xl font-semibold transition-all duration-300"
+          className="w-full rounded-xl bg-indigo-600 px-8 py-3
+          font-semibold text-white transition-all duration-300
+          hover:bg-indigo-700
+          sm:w-auto md:col-span-2 md:justify-self-center"
         >
           Create Expense
         </button>
       </div>
-      <Navbar />
 
+      <Navbar />
     </div>
   );
 }
