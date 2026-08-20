@@ -1,5 +1,5 @@
 import { Calendar, Percent } from "lucide-react";
-
+import { useEffect, useState } from "react"
 export const getLeftDays = () => {
   const today = new Date();
 
@@ -15,7 +15,17 @@ export const getLeftDays = () => {
 function MonthlySummery({ MonthlySumArr }) {
   console.log(MonthlySumArr);
   const leftDays = getLeftDays();
+  const [shake, setShake] = useState(false);
 
+  useEffect(() => {
+    setShake(true);
+
+    const timer = setTimeout(() => {
+      setShake(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   if (!MonthlySumArr) {
     return null;
@@ -26,11 +36,14 @@ function MonthlySummery({ MonthlySumArr }) {
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-medium uppercase tracking-wider text-indigo-100 sm:text-sm">
+          <p
+            className={`text-xs font-medium uppercase tracking-wider text-indigo-100 sm:text-sm ${shake ? "animate-bounce" : ""
+              }`}
+          >
             Monthly Spending
           </p>
 
-          <h1 className="mt-2 truncate text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl">
+          <h1 className="mt-2 truncate text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl bg-gradient-to-r from-red-400 via-green-400 via-blue-400 to-red-400 bg-[length:300%_100%] bg-clip-text text-transparent animate-[shine_5s_linear_infinite]">
             ₹{MonthlySumArr.expensesAmount}
           </h1>
 
@@ -61,7 +74,7 @@ function MonthlySummery({ MonthlySumArr }) {
             Remaining
           </p>
 
-          <p className="mt-1 text-lg font-extrabold sm:text-xl">
+          <p className="animate-[pulse_2s_ease-in-out_infinite] mt-1 text-lg font-extrabold sm:text-xl">
             ₹{MonthlySumArr.reminderAmount}
           </p>
         </div>
