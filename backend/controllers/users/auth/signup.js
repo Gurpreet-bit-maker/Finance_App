@@ -1,5 +1,6 @@
 import bcryptFunction from "../../../utils/bcryptPassword.js";
 import userSchema from "../../../models/userSchema.js";
+import tokenFunction from ".././../../utils/jwtToken.js";
 
 export const signup = async (req, res) => {
   let { name, email, phone, password } = req.body;

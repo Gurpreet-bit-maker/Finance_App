@@ -1,5 +1,6 @@
 import userSchema from "../../../models/userSchema.js";
 import bcrypt from "bcrypt";
+import tokenFunction from ".././../../utils/jwtToken.js";
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -15,7 +16,7 @@ export const loginController = async (req, res) => {
     if (!verifyPassword)
       return res.status(400).json({ message: "Password error" });
 
-    let token = await tokenFunction(email);
+    const token = await tokenFunction(email);
     if (!token) return res.json({ message: "token not genrated" });
     //* sending otp on email
     // let randomNum = Math.floor(Math.random() * 900000) + 100000;
