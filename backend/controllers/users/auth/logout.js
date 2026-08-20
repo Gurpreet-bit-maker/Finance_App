@@ -9,8 +9,7 @@ export const logout = async (req, res) => {
         message: "User not found",
       });
     }
-    console.log(user);
-
+    
     user.isVerify = false;
     await user.save();
 

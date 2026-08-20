@@ -12,7 +12,6 @@ export const loginController = async (req, res) => {
     if (!user) return res.status(404).json({ message: "User Not Found" });
 
     let verifyPassword = await bcrypt.compare(password, user.password);
-
     if (!verifyPassword)
       return res.status(400).json({ message: "Password error" });
 
