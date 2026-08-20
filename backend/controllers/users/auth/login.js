@@ -17,10 +17,7 @@ export const loginController = async (req, res) => {
 
     const token = await tokenFunction(email);
     if (!token) return res.json({ message: "token not genrated" });
-    //* sending otp on email
-    // let randomNum = Math.floor(Math.random() * 900000) + 100000;
-    // console.log(randomNum);
-    // await sendingOtp(email, randomNum);
+   
 
     user.isVerify = true;
     await user.save();
