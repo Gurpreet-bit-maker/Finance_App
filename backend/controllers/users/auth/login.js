@@ -1,23 +1,40 @@
 import userSchema from "../../../models/userSchema.js";
 import bcrypt from "bcrypt";
-import tokenFunction from ".././../../utils/jwtToken.js";
+import tokenFunction from "../../../utils/jwtToken.js";
+
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password)
-      return res.status(400).json({ message: "emain and password required" });
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Email and password required",
+      });
+    }
 
-    const user = await userSchema.findOne({ email: email });
-    if (!user) return res.status(404).json({ message: "User Not Found" });
+    const user = await userSchema.findOne({ email });
 
-    let verifyPassword = await bcrypt.compare(password, user.password);
-    if (!verifyPassword)
-      return res.status(400).json({ message: "Password error" });
+    if (!user) {
+      return res.status(404).json({
+        message: "User Not Found",
+      });
+    }
+
+    const verifyPassword = await bcrypt.compare(password, user.password);
+
+    if (!verifyPassword) {
+      return res.status(400).json({
+        message: "Password error",
+      });
+    }
 
     const token = await tokenFunction(email);
-    if (!token) return res.json({ message: "token not genrated" });
-   
+
+    if (!token) {
+      return res.status(500).json({
+        message: "Token not generated",
+      });
+    }
 
     user.isVerify = true;
     await user.save();
@@ -29,9 +46,15 @@ export const loginController = async (req, res) => {
       path: "/",
     });
 
-    return res.status(200).json({ message: "Successfully Login", token });
+    return res.status(200).json({
+      message: "Successfully Login",
+      token,
+    });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "otp server error" });
+    console.log("LOGIN ERROR:", error);
+
+    return res.status(500).json({
+      message: "Login server error",
+    });
   }
 };

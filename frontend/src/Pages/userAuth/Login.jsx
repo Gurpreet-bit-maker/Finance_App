@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
-
+import { AuthCreateVarible } from "../Context/auth/AuthContext";
 
 export default function Login() {
-  const apiUrl = import.meta.env.VITE_SERVER
-  // todo pending setErrorByApip
-  const [errorByApi, setErrorByApi] = useState("")
-  let navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_SERVER;
+  const navigate = useNavigate();
 
-  let {
+  const { checkAuth } = useContext(AuthCreateVarible);
+
+  const [errorByApi, setErrorByApi] = useState("");
+
+  const {
     handleSubmit,
     register,
     reset,
@@ -28,10 +28,18 @@ export default function Login() {
       const res = await axios.post(
         `${apiUrl}/api/auth/login`,
         data,
-        { withCredentials: true }
+        {
+          withCredentials: true,
+        }
       );
+
       console.log("LOGIN SUCCESS:", res.data);
+
       reset();
+
+      // Login ke baad auth state update karo
+      await checkAuth();
+
       navigate("/");
     } catch (error) {
       console.log(
@@ -40,71 +48,79 @@ export default function Login() {
       );
 
       setErrorByApi(
-        error.response?.data?.message || "Something went wrong"
+        error.response?.data?.message ||
+        "Something went wrong"
       );
     }
   };
 
   return (
-    <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-200 ">
-        <div className="bg-white p-8 m-2 rounded-xl shadow-lg w-full max-w-md">
-          <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
-            Finance App Login
-          </h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-200">
+      <div className="bg-white p-8 m-2 rounded-xl shadow-lg w-full max-w-md">
 
-          <form onSubmit={handleSubmit(loginFunc)} className="space-y-4">
-            <input
-              type="email"
-              placeholder="Email"
-              {...register("email", { required: "Email Required" })}
-              className="w-full p-2 border text-md border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+        <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
+          Finance App Login
+        </h2>
 
-            {errors.email && (
-              <p className="text-center text-red-500 text-sm font-medium">
-                {errors.email.message}
-              </p>
-            )}
+        <form
+          onSubmit={handleSubmit(loginFunc)}
+          className="space-y-4"
+        >
+          <input
+            type="email"
+            placeholder="Email"
+            {...register("email", {
+              required: "Email Required",
+            })}
+            className="w-full p-2 border text-md border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
 
-            <input
-              type="password"
-              placeholder="Password"
-              {...register("password", { required: "Password Required" })}
-              className="w-full p-2 border text-md border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+          {errors.email && (
+            <p className="text-center text-red-500 text-sm">
+              {errors.email.message}
+            </p>
+          )}
 
-            {errors.password && (
-              <p className="text-center text-red-500 text-sm font-medium">
-                {errors.password.message}
-              </p>
-            )}
+          <input
+            type="password"
+            placeholder="Password"
+            {...register("password", {
+              required: "Password Required",
+            })}
+            className="w-full p-2 border text-md border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
 
-            {errorByApi && (
-              <p className="text-center text-red-600 text-sm font-medium">
-                {errorByApi}
-              </p>
-            )}
+          {errors.password && (
+            <p className="text-center text-red-500 text-sm">
+              {errors.password.message}
+            </p>
+          )}
 
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors flex justify-center items-center"
-            >
-              Submit
-            </button>
-          </form>
+          {errorByApi && (
+            <p className="text-center text-red-600 text-sm">
+              {errorByApi}
+            </p>
+          )}
 
-          <p className="mt-5 text-center text-gray-600  text-sm">
-            Don't have an account?{" "}
-            <span
-              onClick={() => navigate("/signup")}
-              className="text-blue-600 font-medium cursor-pointer hover:underline text-sm"
-            >
-              Sign Up
-            </span>
-          </p>
-        </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Submit
+          </button>
+        </form>
+
+        <p className="mt-5 text-center text-gray-600 text-sm">
+          Don't have an account?{" "}
+          <span
+            onClick={() => navigate("/signup")}
+            className="text-blue-600 font-medium cursor-pointer hover:underline"
+          >
+            Sign Up
+          </span>
+        </p>
+
       </div>
-    </>
+    </div>
   );
 }

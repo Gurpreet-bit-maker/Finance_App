@@ -7,12 +7,12 @@ function AuthProtected() {
 
   if (loading) {
     return (
-      <div className="h-screen flex justify-center items-center text-xl">
-        Loading...
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-gray-600">Loading...</p>
       </div>
     );
   }
-  // console.log(user);
+
   if (!user) {
     return <Navigate to="/login" replace />;
   }
