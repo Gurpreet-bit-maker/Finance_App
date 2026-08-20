@@ -24,7 +24,7 @@ export const signup = async (req, res) => {
     let token = await tokenFunction(email);
     if (!token) return res.json({ message: "token not genrated" });
     const user = await userSchema.findOne({ email: email });
-    
+
     user.isVerify = true;
     await user.save();
 
@@ -33,6 +33,7 @@ export const signup = async (req, res) => {
       secure: true,
       sameSite: "none",
       path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.status(200).json({
       message: "working signup api",
