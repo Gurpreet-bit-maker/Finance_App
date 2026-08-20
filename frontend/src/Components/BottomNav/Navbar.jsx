@@ -4,6 +4,7 @@ import {
   ChartColumn,
   Search,
   Settings,
+  ReceiptText,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
@@ -11,6 +12,7 @@ export default function BottomNavbar() {
   const navlinkPath = [
     { path: "/", name: "Home", icon: House },
     { path: "/add", name: "Add", icon: SquarePlus },
+    { path: "/expenses", name: "Expenses", icon: ReceiptText },
     { path: "/analitics", name: "Analytics", icon: ChartColumn },
     { path: "/search", name: "Search", icon: Search },
     { path: "/setting", name: "Settings", icon: Settings },
@@ -27,7 +29,7 @@ export default function BottomNavbar() {
               key={item.name}
               to={item.path}
               className={({ isActive }) =>
-                `group relative flex h-14 min-w-[58px] flex-col items-center justify-center rounded-2xl px-2 transition-all duration-300 ${isActive
+                `group relative flex h-14 min-w-[54px] flex-col items-center justify-center rounded-2xl px-1 transition-all duration-300 ${isActive
                   ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
                   : "text-gray-500 hover:bg-indigo-50 hover:text-indigo-600"
                 }`
@@ -41,10 +43,7 @@ export default function BottomNavbar() {
                     className="transition-transform duration-300 group-hover:-translate-y-0.5"
                   />
 
-                  <span
-                    className={`text-[10px] font-semibold ${isActive ? "mt-1" : "mt-1"
-                      }`}
-                  >
+                  <span className="mt-1 text-[9px] font-semibold sm:text-[10px]">
                     {item.name}
                   </span>
                 </>

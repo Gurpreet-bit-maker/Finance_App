@@ -11,7 +11,7 @@ import {
   Plane,
   CircleEllipsis,
 } from "lucide-react";
-
+import { useNavigate } from "react-router-dom"
 import { MONTHS } from "./GraphComp";
 import { TrendingUp, Calendar } from "lucide-react";
 
@@ -55,6 +55,14 @@ const IconComp = [
 ];
 
 function TransectionsHistory({ transectionsArr }) {
+  const navigate = useNavigate()
+  const today = new Date();
+  today.setDate(today.getDate() - 7);
+
+  const result = transectionsArr.filter((item) => {
+    return new Date(item.date) > today;
+  });
+
   //* today date, month and year
   let thisMonth = new Date().toLocaleDateString("en-IN", {
     day: "numeric",
@@ -140,14 +148,21 @@ function TransectionsHistory({ transectionsArr }) {
             Recent Transactions
           </h1>
 
-          <button className="text-xs sm:text-sm text-indigo-600 font-semibold hover:underline">
+          {/* <button className="text-xs sm:text-sm text-indigo-600 font-semibold hover:underline">
             View All
+          </button> */}
+
+          <button
+            onClick={() => navigate("/expenses")}
+            className="text-xs font-semibold text-indigo-600 hover:underline sm:text-sm"
+          >
+            View All · Last 7 Days
           </button>
         </div>
 
         {/* Transactions */}
         <div className="space-y-4">
-          {transectionsArr.map((item, index) => {
+          {result.map((item, index) => {
             const cate = IconComp.find((logo) => logo.name === item.category);
             const Icon = cate?.icon;
 

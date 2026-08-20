@@ -19,6 +19,7 @@ import ExpenseCreate from "./Pages/ExpenseCreate";
 import Expense from "./Context/expense/Expense";
 import Search from "./Pages/Search";
 import Analitics from "./Pages/Analitics";
+import ExpensesHistory from "./Pages/ExpensesHistory";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/setting" element={<Setting />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/Analitics" element={<Analitics />} />
+                <Route path="/expenses" element={<ExpensesHistory />} />
               </Route>
             </Routes>
 
