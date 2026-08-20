@@ -8,9 +8,6 @@ export const signup = async (req, res) => {
   let encryptPassword = await bcryptFunction(password);
   if (!encryptPassword) return res.status(500).json("not encrypted password");
 
-  let token = await tokenFunction(email);
-  if (!token) return res.json({ message: "token not genrated" });
-
   //* otp genrate and send to email
   // let randomNum = Math.floor(Math.random() * 900000) + 100000;
   // console.log(randomNum);
@@ -23,6 +20,9 @@ export const signup = async (req, res) => {
       phone,
       password: encryptPassword,
     });
+
+    let token = await tokenFunction(email);
+    if (!token) return res.json({ message: "token not genrated" });
 
     res.cookie("token", token, {
       httpOnly: true,
