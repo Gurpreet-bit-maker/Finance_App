@@ -32,9 +32,7 @@ export default function Login() {
       );
       console.log("LOGIN SUCCESS:", res.data);
       reset();
-      navigate("/verifyotp", {
-        state: { email: data.email },
-      });
+      navigate("/");
     } catch (error) {
       console.log(
         "LOGIN ERROR:",

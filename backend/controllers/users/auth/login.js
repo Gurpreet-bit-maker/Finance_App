@@ -1,5 +1,4 @@
 import userSchema from "../../../models/userSchema.js";
-import sendingOtp from "../../../utils/nodemailer.js";
 import bcrypt from "bcrypt";
 export const loginController = async (req, res) => {
   try {
@@ -15,15 +14,23 @@ export const loginController = async (req, res) => {
 
     if (!verifyPassword)
       return res.status(400).json({ message: "Password error" });
+
+    let token = await tokenFunction(email);
+    if (!token) return res.json({ message: "token not genrated" });
     //* sending otp on email
-    let randomNum = Math.floor(Math.random() * 900000) + 100000;
-    console.log(randomNum);
+    // let randomNum = Math.floor(Math.random() * 900000) + 100000;
+    // console.log(randomNum);
     // await sendingOtp(email, randomNum);
 
-    user.otp = randomNum;
-    user.isVerify = false;
-    user.otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
+    user.isVerify = true;
     await user.save();
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/",
+    });
 
     return res.status(200).json({ message: "sent otp on mail" });
   } catch (error) {

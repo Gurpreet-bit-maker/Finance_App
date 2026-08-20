@@ -23,7 +23,7 @@ function Signup() {
       );
       console.log(userSignup);
       reset();
-      navigate("/verifyotp", { state: { email: data.email } });
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

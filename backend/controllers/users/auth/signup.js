@@ -1,18 +1,19 @@
 import bcryptFunction from "../../../utils/bcryptPassword.js";
 import userSchema from "../../../models/userSchema.js";
-import sendingOtp from "../../../utils/nodemailer.js";
 
 export const signup = async (req, res) => {
   let { name, email, phone, password } = req.body;
-  console.log(req.body);
+
   let encryptPassword = await bcryptFunction(password);
   if (!encryptPassword) return res.status(500).json("not encrypted password");
-  console.log(req.body);
+
+  let token = await tokenFunction(email);
+  if (!token) return res.json({ message: "token not genrated" });
 
   //* otp genrate and send to email
-  let randomNum = Math.floor(Math.random() * 900000) + 100000;
-  console.log(randomNum);
-  // await sendingOtp(email, randomNum);
+  // let randomNum = Math.floor(Math.random() * 900000) + 100000;
+  // console.log(randomNum);
+  // // await sendingOtp(email, randomNum);
 
   try {
     let signupStore = await userSchema.create({
@@ -20,10 +21,14 @@ export const signup = async (req, res) => {
       email,
       phone,
       password: encryptPassword,
-      otp: randomNum,
-      otpExpiry: new Date(Date.now() + 5 * 60 * 1000),
     });
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/",
+    });
     res.status(200).json({
       message: "working signup api",
       data: { signupStore },

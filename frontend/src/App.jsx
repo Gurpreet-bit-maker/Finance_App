@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Navigate Routes
 import Login from "./Pages/userAuth/Login";
 import Signup from "./Pages/userAuth/Signup";
-import OtpVerifyPage from "./Pages/userAuth/OtpVerifyPage";
+// import OtpVerifyPage from "./Pages/userAuth/OtpVerifyPage";
 import Deshboard from "./Pages/Deshboard";
 import ScrollToTop from "./Components/ScrollToTop"
 import Navbar from "./Components/BottomNav/Navbar";
@@ -29,7 +29,6 @@ function App() {
             <ScrollToTop />
             <Routes>
               <Route path="/login" element={<Login />} />
-              <Route path="/verifyotp" element={<OtpVerifyPage />} />
               <Route path="/signup" element={<Signup />} />
 
               {/* Protected Routes */}
