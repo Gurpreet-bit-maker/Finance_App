@@ -135,7 +135,7 @@ function SearchPage() {
   // =========================
   console.log(msgByApi);
   return (
-    <div className="px-4" style={{ paddingBottom: "100px" }}>
+    <div className=" px-4 lg:mx-auto lg:max-w-6xl xl:max-w-7xl" style={{ paddingBottom: "100px" }}>
       {/* =========================
           AI SEARCH
       ========================= */}
@@ -147,10 +147,10 @@ function SearchPage() {
         >
           <ArrowLeft size={24} />
         </button>{" "}
-        <h1>Add Expense</h1>
+        <h1>Search</h1>
       </div>
       <br />
-      <div>
+      <div className="w-full lg:max-w-5xl lg:mx-auto">
         {/* Search Box */}
 
         <div className="flex items-center rounded-2xl border-2 border-blue-500 p-3">
@@ -266,7 +266,7 @@ function SearchPage() {
           QUICK FILTER
       ========================= */}
 
-      <div className="w-full rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
+      <div className="w-full lg:max-w-5xl lg:mx-auto rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
         <QuickFilter
           setFoodValue={setFoodValue}
           setThisMonth={setThisMonth}
@@ -281,7 +281,7 @@ function SearchPage() {
           RESULTS HEADER
       ========================= */}
 
-      <div className="mb-6 flex gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-6 flex w-full lg:mx-auto lg:max-w-5xl gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="pl-2 text-2xl font-bold text-gray-900 sm:text-3xl">
           {errorMsg ? 0 : filtereData.length} Results
         </h2>
@@ -312,7 +312,7 @@ function SearchPage() {
            EXPENSE LIST
         ========================= */
 
-        <div className="mt-8 space-y-5">
+        <div className="mt-8 space-y-5  lg:max-w-5xl lg:mx-auto">
           {filtereData.map((item, index) => {
             const date = new Date(item.date).toLocaleDateString("en-IN", {
               day: "2-digit",
@@ -328,11 +328,6 @@ function SearchPage() {
                 {/* Left Side */}
 
                 <div className="flex items-center gap-4">
-                  {/* Icon */}
-
-                  {/* <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-orange-100 text-3xl sm:h-20 sm:w-20 sm:text-4xl">
-                    ☕
-                  </div> */}
 
                   {/* Expense Details */}
 
@@ -374,7 +369,7 @@ function SearchPage() {
           NO EXPENSE FOUND
       ========================= */}
       <br />
-      <div className="w-full rounded-2xl border border-gray-700 bg-gray-800 p-5 shadow-md sm:p-6">
+      <div className="w-full lg:max-w-5xl lg:mx-auto rounded-2xl border border-gray-700 bg-gray-800 p-5 shadow-md sm:p-6">
         <div className="flex min-w-0 items-start justify-between gap-4">
           {/* Left Content */}
           <div className="min-w-0">

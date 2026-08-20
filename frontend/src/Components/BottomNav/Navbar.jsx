@@ -1,17 +1,25 @@
-import { House, SquarePlus, ChartColumn, Search, Settings } from "lucide-react";
+import {
+  House,
+  SquarePlus,
+  ChartColumn,
+  Search,
+  Settings,
+} from "lucide-react";
 import { NavLink } from "react-router-dom";
+
 export default function BottomNavbar() {
   const navlinkPath = [
-    { path: "/", name: "home", icon: House },
-    { path: "/add", name: "add", icon: SquarePlus },
-    { path: "/analitics", name: "analitics", icon: ChartColumn },
-    { path: "/search", name: "search", icon: Search },
-    { path: "/setting", name: "setting", icon: Settings },
+    { path: "/", name: "Home", icon: House },
+    { path: "/add", name: "Add", icon: SquarePlus },
+    { path: "/analitics", name: "Analytics", icon: ChartColumn },
+    { path: "/search", name: "Search", icon: Search },
+    { path: "/setting", name: "Settings", icon: Settings },
   ];
+
   return (
-    <nav className="fixed bottom-0 left-0 w-full border-t bg-white shadow-lg z-50">
-      <div className="max-w-md mx-auto flex items-center justify-around h-16">
-        {navlinkPath.map((item, index) => {
+    <nav className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-24px)] max-w-md -translate-x-1/2">
+      <div className="flex h-[70px] items-center justify-around rounded-[28px] border border-white/60 bg-white/90 px-2 shadow-[0_10px_40px_rgba(0,0,0,0.12)] backdrop-blur-xl">
+        {navlinkPath.map((item) => {
           const Icon = item.icon;
 
           return (
@@ -19,15 +27,28 @@ export default function BottomNavbar() {
               key={item.name}
               to={item.path}
               className={({ isActive }) =>
-                `flex flex-col items-center justify-center gap-1 transition-colors duration-200 ${
-                  isActive
-                    ? "text-blue-600"
-                    : "text-gray-500 hover:text-blue-600"
+                `group relative flex h-14 min-w-[58px] flex-col items-center justify-center rounded-2xl px-2 transition-all duration-300 ${isActive
+                  ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
+                  : "text-gray-500 hover:bg-indigo-50 hover:text-indigo-600"
                 }`
               }
             >
-              <Icon size={20} />
-              <p>{item.name}</p>
+              {({ isActive }) => (
+                <>
+                  <Icon
+                    size={21}
+                    strokeWidth={isActive ? 2.5 : 2}
+                    className="transition-transform duration-300 group-hover:-translate-y-0.5"
+                  />
+
+                  <span
+                    className={`text-[10px] font-semibold ${isActive ? "mt-1" : "mt-1"
+                      }`}
+                  >
+                    {item.name}
+                  </span>
+                </>
+              )}
             </NavLink>
           );
         })}

@@ -2,12 +2,12 @@ import React, { useContext, useState } from "react";
 import { User, ArrowLeft, Mail, Phone } from "lucide-react";
 import axios from "axios";
 import ExportsFile from "../Components/SettingPage/ExportsFile";
-import Navbar from "../Components/BottomNav/Navbar"
+import Navbar from "../Components/BottomNav/Navbar";
 import { ExpenseVarible } from "../Context/expense/Expense";
 import { useNavigate } from "react-router-dom";
 
 function Setting() {
-  const apiUrl = import.meta.env.VITE_SERVER
+  const apiUrl = import.meta.env.VITE_SERVER;
   const navigate = useNavigate();
 
   let { userInfo } = useContext(ExpenseVarible);
@@ -24,33 +24,36 @@ function Setting() {
 
       console.log(res.data);
       alert(`Successfully Added Your Budget ${monthBudget}`);
-      navigate("/")
+      navigate("/");
     } catch (error) {
       console.log(error.response.data);
     }
   };
-  // let name = $('123');
-  // console.log(name);
 
   return (
     <>
-      <div className="p-5">
-        <div className="flex gap-x-5 items-center">
+      <div className="p-5 lg:mx-auto lg:max-w-6xl xl:max-w-7xl">
+        {/* Back Button */}
+        <div className="flex gap-x-5 mb-6 lg:mb-8 items-center">
           <button
             onClick={() => navigate(-1)}
             className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 bg-white hover:bg-gray-100 transition"
           >
             <ArrowLeft size={24} />
-          </button>{" "}
-          <h1>Add Expense</h1>
+          </button>
+
+          <h1>Setting</h1>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 my-5 ml-2">
-          Setting
-        </h1>
+
+        {/* Setting Heading */}
+
+
+        {/* Profile Card */}
         <div className="w-full max-w-4xl mx-auto bg-white border border-gray-200 rounded-3xl shadow-lg p-5 sm:p-8">
           {/* Header */}
-          <div className="flex items-center gap-3 mb-8 ">
+          <div className="flex items-center gap-3 mb-8">
             <User size={28} className="text-gray-600" />
+
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
               Profile
             </h1>
@@ -110,13 +113,19 @@ function Setting() {
             </div>
           </div>
         </div>
+
         <br />
-        <div style={{ paddingBottom: "100px" }}>
+
+        {/* Exports */}
+        <div
+          className="w-full lg:max-w-4xl lg:mx-auto"
+          style={{ paddingBottom: "100px" }}
+        >
           <ExportsFile />
         </div>
+
         <Navbar />
       </div>
-
     </>
   );
 }

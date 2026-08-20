@@ -50,7 +50,7 @@ function ExpenseCreate() {
   console.log({ amount, Subcategory, selectedCategory });
   return (
     <div
-      className="flex flex-col gap-y-5 p-5 pb-28"
+      className="  flex flex-col gap-y-5 p-5 pb-28 lg:mx-auto lg:max-w-6xl xl:max-w-7xl"
       style={{ paddingBottom: "100px" }}
     >
       <div className="flex gap-x-5 items-center">
@@ -132,8 +132,9 @@ function ExpenseCreate() {
         </div>
         <button
           onClick={createExpense}
-          className=" w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white
-        px-8 py-3 rounded-xl font-semibold transition-all duration-300"
+          className=" w-full sm:w-auto md:col-span-2 md:justify-self-center
+  bg-indigo-600 hover:bg-indigo-700 text-white
+  px-8 py-3 rounded-xl font-semibold transition-all duration-300"
         >
           Create Expense
         </button>

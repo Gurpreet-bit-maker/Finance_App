@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { LogOut } from "lucide-react";
+import { LogOut, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExpenseVarible } from "../Context/expense/Expense";
 import GraphComp from "../Components/DeshboardPage/GraphComp";
@@ -37,22 +37,26 @@ function Deshboard() {
   }, []);
 
   return (
-    <div className="p-5" style={{ paddingBottom: "100px" }}>
+    <div className="p-5 lg:mx-auto lg:max-w-6xl xl:max-w-7xl" style={{ paddingBottom: "100px" }}>
       {/* profile and logout btn */}
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-4">
         {/* Left */}
-        <div className="min-w-0">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 truncate">
-            Hello {userInfo} <span>👋</span>
-          </h1>
+        <div onClick={() => navigate("/setting")} className="flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+            {userInfo?.charAt(0)?.toUpperCase()}
+          </div>
+
+          {/* <h1 className="truncate text-xl font-semibold text-gray-900 sm:text-2xl">
+            {userInfo}
+          </h1> */}
         </div>
 
         {/* Right */}
         <button
           onClick={logout}
-          className="flex shrink-0 items-center gap-2 rounded-xl bg-red-500 px-3 py-2 text-sm sm:px-4 sm:text-base text-white transition hover:bg-red-600"
+          className="flex shrink-0 items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-600 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600 sm:px-4"
         >
-          <LogOut size={18} />
+          <LogOut size={17} />
           <span className="hidden sm:inline">Logout</span>
         </button>
       </div>

@@ -24,6 +24,9 @@ export const signup = async (req, res) => {
     let token = await tokenFunction(email);
     if (!token) return res.json({ message: "token not genrated" });
 
+    user.isVerify = true;
+    await user.save();
+
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
