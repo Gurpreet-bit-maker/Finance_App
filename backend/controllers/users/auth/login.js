@@ -33,7 +33,7 @@ export const loginController = async (req, res) => {
       path: "/",
     });
 
-    return res.status(200).json({ message: "sent otp on mail" });
+    return res.status(200).json({ message: "Successfully Login", token });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "otp server error" });
