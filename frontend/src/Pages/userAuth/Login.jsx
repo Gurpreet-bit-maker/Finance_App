@@ -100,9 +100,7 @@ export default function Login() {
               <ShieldCheck size={26} />
             </div>
 
-            <p className="text-blue-200 text-sm font-semibold tracking-wider mb-4">
-              WELCOME BACK
-            </p>
+          
 
             <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
               Your finances, all in one place.
