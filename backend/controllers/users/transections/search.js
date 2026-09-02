@@ -87,7 +87,7 @@ export const generateAIResponse = async (req, res) => {
         return item.finalAmount >= 2000;
       });
       console.log(over2kExpenses);
-      console.log([] == "");
+     
 
       return res.json({
         message: "Over 2k expenses",

@@ -43,7 +43,7 @@ function Deshboard() {
         {/* Left */}
         <div onClick={() => navigate("/setting")} className="flex items-center gap-3">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
-            {userInfo?.charAt(0)?.toUpperCase()}
+            {/* {userInfo?.charAt(0)?.toUpperCase()} */}
           </div>
 
           {/* <h1 className="truncate text-xl font-semibold text-gray-900 sm:text-2xl">

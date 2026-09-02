@@ -5,7 +5,7 @@ export const aiSearch_method = async (req, res) => {
   try {
     //* prompt search btn
     const promptValue = req.body.userPrompt;
-    console.log(promptValue);
+    
     if (!promptValue) {
       return res.status(400).json({
         error: "Prompt is required",

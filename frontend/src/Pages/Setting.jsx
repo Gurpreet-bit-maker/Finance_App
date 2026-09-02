@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { User, ArrowLeft, Mail, Phone } from "lucide-react";
+import { User, ArrowLeft, Mail, Phone, UserRound } from "lucide-react";
 import axios from "axios";
 import ExportsFile from "../Components/SettingPage/ExportsFile";
 import Navbar from "../Components/BottomNav/Navbar";
@@ -65,7 +65,7 @@ function Setting() {
             <div className="shrink-0">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-linear-to-br from-violet-600 to-indigo-700 flex items-center justify-center shadow-lg">
                 <span className="text-3xl sm:text-4xl font-bold text-white">
-                  {userInfo.slice(0, 1)}
+                  {/* {userInfo.slice(0, 1)} */}
                 </span>
               </div>
             </div>
@@ -74,17 +74,15 @@ function Setting() {
             <div className="flex-1 w-full">
               <div className="space-y-6">
                 {/* Full Name */}
-                <div>
-                  <label className="block text-gray-600 text-lg sm:text-xl mb-2">
-                    Full Name
-                  </label>
+                <div className="w-full flex items-center gap-3">
+                  <div className="border p-2 rounded-lg" >
 
-                  <input
-                    type="text"
-                    value={userInfo}
-                    readOnly
-                    className="w-full h-12 sm:h-14 rounded-2xl border border-gray-300 bg-gray-50 px-4 sm:px-5 text-lg sm:text-2xl outline-none"
-                  />
+                    <UserRound className="w-6 h-6   sm:w-7 sm:h-7 text-gray-500 shrink-0" />
+                  </div>
+
+                  <p className="text-gray-800 text-lg sm:text-xl lg:text-2xl font-medium break-words">
+                    {userInfo}
+                  </p>
                 </div>
 
                 {/* Budget */}

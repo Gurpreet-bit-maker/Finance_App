@@ -29,12 +29,12 @@ export const transections = async (req, res) => {
           purpleCard: null,
           graph: null,
           transectionHistory: null,
-          userName: name,
+          userName: null,
         },
       });
     }
-    const { name } = userProfile;
-    console.log(req.user.userId);
+    const { name, email, phone } = userProfile;
+
     const budgetSchema = await incomeSchema.findOne({ user: req.user.userId });
     if (!budgetSchema) {
       return res.json({
@@ -43,7 +43,7 @@ export const transections = async (req, res) => {
           purpleCard: null,
           graph: null,
           transectionHistory: null,
-          userName: name,
+          userName: { name, email, phone },
         },
       });
     }
@@ -99,14 +99,14 @@ export const transections = async (req, res) => {
       expensesAmount: totalSpent,
       usedPercentage: percentage.toFixed(1),
     };
-
+    console.log(email);
     return res.json({
-      message: "all transections and aggrigates",
+      message: "all transections and aggrigates and user imformation",
       data: {
         purpleCard: purpleCardData,
         graph: category,
         transectionHistory: transections,
-        userName: name,
+        userImfo: { name, email, phone },
       },
     });
   } catch (error) {
