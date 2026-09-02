@@ -3,6 +3,7 @@ import { jsPDF } from "jspdf";
 import { autoTable } from "jspdf-autotable";
 import { ExpenseVarible } from "../../Context/expense/Expense";
 import { useContext } from "react";
+import { FaFilePdf, FaFileCsv } from "react-icons/fa";
 
 export default function ExportFile() {
   let { transection } = useContext(ExpenseVarible);
@@ -80,11 +81,7 @@ export default function ExportFile() {
           hover:border-indigo-500 hover:shadow-md"
           onClick={downloadCSV}
         >
-          <FileSpreadsheet
-            size={40}
-            strokeWidth={1.8}
-            className="text-gray-500 transition group-hover:text-indigo-600 sm:w-12 sm:h-12"
-          />
+          <FaFileCsv className="w-7 h-7 text-green-600" />
 
           <p className="mt-3 text-lg sm:text-xl font-semibold text-gray-700">
             Export CSV
@@ -99,11 +96,8 @@ export default function ExportFile() {
           hover:border-indigo-500 hover:shadow-md"
           onClick={downloadPdf}
         >
-          <FileText
-            size={40}
-            strokeWidth={1.8}
-            className="text-gray-500 transition group-hover:text-indigo-600 sm:w-12 sm:h-12"
-          />
+
+          <FaFilePdf className="w-7 h-7 text-red-500" />
 
           <p className="mt-3 text-lg sm:text-xl font-semibold text-gray-700">
             Export PDF

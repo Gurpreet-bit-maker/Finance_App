@@ -8,7 +8,7 @@ function Expense({ children }) {
 
   const [transection, setTransections] = useState([]);
   const [graphData, setGraphData] = useState([]);
-  const [userInfo, setUserInfo] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
   const [MonthlySum, setMonthlySummary] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -26,12 +26,12 @@ function Expense({ children }) {
       if (data) {
         setGraphData(data.graph || []);
         setTransections(data.transectionHistory || []);
-        setUserInfo(data.userName || "");
+        setUserInfo(data.userImfo || {});
         setMonthlySummary(data.purpleCard || null);
       } else {
         setGraphData([]);
         setTransections([]);
-        setUserInfo("");
+        setUserInfo(null);
         setMonthlySummary(null);
       }
     } catch (error) {
