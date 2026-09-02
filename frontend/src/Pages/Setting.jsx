@@ -10,10 +10,10 @@ function Setting() {
   const apiUrl = import.meta.env.VITE_SERVER;
   const navigate = useNavigate();
 
-  let { userInfo } = useContext(ExpenseVarible);
-  const [monthBudget, setBudget] = useState(5000);
+  let { userInfo, MonthlySum } = useContext(ExpenseVarible);
+  const [monthBudget, setBudget] = useState(MonthlySum.incomeAmount);
   // const userDetails = userInfo?.name || "helo";
-  // console.log(userDetails);
+
 
   const postMonthlyBudget = async () => {
     try {
