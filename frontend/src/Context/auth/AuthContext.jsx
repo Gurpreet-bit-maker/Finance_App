@@ -19,7 +19,7 @@ const AuthContext = ({ children }) => {
       );
       console.log(res.data.data.transectionHistory);
 
-      setUser(res.data.data.transectionHistory);
+      setUser(res.data.data);
     } catch (error) {
       setUser(null);
       console.log(
