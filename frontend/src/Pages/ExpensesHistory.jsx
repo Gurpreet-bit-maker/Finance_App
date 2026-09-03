@@ -9,6 +9,7 @@ import {
     GraduationCap,
     Plane,
     CircleEllipsis,
+    ReceiptText
 } from "lucide-react";
 
 import { ExpenseVarible } from "../Context/expense/Expense";
