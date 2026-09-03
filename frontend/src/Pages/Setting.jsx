@@ -13,7 +13,7 @@ function Setting() {
   let { userInfo, MonthlySum } = useContext(ExpenseVarible);
   const [monthBudget, setBudget] = useState(MonthlySum?.incomeAmount);
   // const userDetails = userInfo?.name || "helo";
-
+  console.log(userInfo)
 
   const postMonthlyBudget = async () => {
     try {

@@ -29,7 +29,7 @@ export const transections = async (req, res) => {
           purpleCard: null,
           graph: null,
           transectionHistory: null,
-          userName: null,
+          userImfo: null,
         },
       });
     }
@@ -43,7 +43,7 @@ export const transections = async (req, res) => {
           purpleCard: null,
           graph: null,
           transectionHistory: null,
-          userName: { name, email, phone },
+          userImfo: { name, email, phone },
         },
       });
     }

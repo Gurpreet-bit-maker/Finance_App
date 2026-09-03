@@ -29,7 +29,7 @@ function ExpensesHistory() {
     };
 
     if (!transection || transection.length === 0) {
-        return null;
+        return <p>Transections not found</p>;
     }
 
     return (
