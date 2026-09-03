@@ -29,7 +29,24 @@ function ExpensesHistory() {
     };
 
     if (!transection || transection.length === 0) {
-        return <p>Transections not found</p>;
+        return <div className="w-full rounded-3xl bg-gray-100 p-6 sm:p-8 md:p-10 shadow-md">
+            <div className="flex flex-col items-center justify-center text-center min-h-[250px] sm:min-h-[300px]">
+
+                <div className="mb-4 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-white shadow-sm">
+                    <ReceiptText className="h-7 w-7 sm:h-8 sm:w-8 text-gray-400" />
+                </div>
+
+                <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700">
+                    No Transactions Found
+                </h2>
+
+                <p className="mt-2 max-w-sm text-sm sm:text-base text-gray-500">
+                    You don't have any transactions yet.
+                </p>
+            </div>
+
+            <Navbar />
+        </div>
     }
 
     return (
