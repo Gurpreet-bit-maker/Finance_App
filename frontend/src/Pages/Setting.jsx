@@ -63,7 +63,7 @@ function Setting() {
             <div className="shrink-0">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-linear-to-br from-violet-600 to-indigo-700 flex items-center justify-center shadow-lg">
                 <span className="text-3xl sm:text-4xl font-bold text-white">
-                  {userInfo?.name.slice(0, 1)}
+                  {userInfo?.name?.slice(0, 1)}
                 </span>
               </div>
             </div>
