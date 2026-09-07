@@ -11,7 +11,7 @@ function SubCategory({ selectedCategory, setSubcategory }) {
 
     Entertainment: ["Movies", "Games", "Music", "Streaming", "Events"],
 
-    Bills: ["Electricity", "Water", "Internet", "Mobile Recharge", "Rent"],
+    Bills: ["Electricity", "Water", "Internet", "Mobile Recharge", "Rent","Amazon pay"],
 
     Health: ["Medicine", "Doctor", "Hospital", "Medical Tests", "Insurance"],
 
