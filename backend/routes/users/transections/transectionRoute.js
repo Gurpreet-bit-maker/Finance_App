@@ -9,5 +9,8 @@ import { isValidToken } from "../../../middleware/user/tokenMiddleware.js";
 router.post("/api/user/create-income", isValidToken, incomeController);
 router.post("/api/user/create-expense", isValidToken, addExpenseController);
 router.get("/api/user/dashboard", isValidToken, transections);
+router.get("/api/user/health", () => {
+  console.log("working this api");
+});
 
 export default router;

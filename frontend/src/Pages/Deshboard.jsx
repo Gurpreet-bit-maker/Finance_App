@@ -21,7 +21,7 @@ function Deshboard() {
       const logout = await axios.get(`${apiUrl}/api/auth/logout`, {
         withCredentials: true,
       });
-      console.log(logout);
+      
       navigate("/login");
     } catch (error) {
       console.log(error.response?.data);
