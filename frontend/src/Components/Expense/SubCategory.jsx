@@ -11,7 +11,7 @@ function SubCategory({ selectedCategory, setSubcategory }) {
 
     Entertainment: ["Movies", "Games", "Music", "Streaming", "Events"],
 
-    Bills: ["Electricity", "Water", "Internet", "Mobile Recharge", "Rent","Amazon pay"],
+    Bills: ["Electricity", "Water", "Internet", "Mobile Recharge", "Rent", "Amazon pay"],
 
     Health: ["Medicine", "Doctor", "Hospital", "Medical Tests", "Insurance"],
 
@@ -24,7 +24,7 @@ function SubCategory({ selectedCategory, setSubcategory }) {
     ],
 
     Travel: ["Flight", "Hotel", "Train", "Bus", "Food", "Local Transport"],
-
+    Loan: ["Personal Loan", "Home Loan", "Education Loan", "Vehicle Loan"],
     Other: ["Gifts", "Donations", "Pets", "Personal Care", "Miscellaneous"],
   };
   // todo chnaging this with user category choose

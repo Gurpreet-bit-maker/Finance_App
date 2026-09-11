@@ -9,6 +9,7 @@ import {
   GraduationCap,
   Plane,
   CircleEllipsis,
+  HandCoins,
 } from "lucide-react";
 
 function Category({ selectedCategory, setSelectedCategory }) {
@@ -21,7 +22,9 @@ function Category({ selectedCategory, setSelectedCategory }) {
     "Health",
     "Education",
     "Travel",
+    "Loan",
     "Other",
+
   ];
   const icons = {
     Food: <UtensilsCrossed className="w-7 h-7 sm:w-8 sm:h-8" />,
@@ -32,6 +35,7 @@ function Category({ selectedCategory, setSelectedCategory }) {
     Health: <HeartPulse className="w-7 h-7 sm:w-8 sm:h-8" />,
     Education: <GraduationCap className="w-7 h-7 sm:w-8 sm:h-8" />,
     Travel: <Plane className="w-7 h-7 sm:w-8 sm:h-8" />,
+    Loan: <HandCoins className="w-7 h-7 sm:w-8 sm:h-8" />,
     Other: <CircleEllipsis className="w-7 h-7 sm:w-8 sm:h-8" />,
   };
 
@@ -48,20 +52,18 @@ function Category({ selectedCategory, setSelectedCategory }) {
             onClick={() => setSelectedCategory(item)}
             className={`cursor-pointer flex items-center gap-4 sm:gap-5 rounded-2xl sm:rounded-3xl border-2 p-5 sm:p-6 transition-all duration-300
 
-            ${
-              selectedCategory === item
+            ${selectedCategory === item
                 ? "border-indigo-600 bg-indigo-50 shadow-md"
                 : "border-gray-200 bg-white hover:border-indigo-400 hover:shadow-sm"
-            }`}
+              }`}
           >
             <div
               className={`flex items-center justify-center w-12 h-12 rounded-xl
 
-              ${
-                selectedCategory === item
+              ${selectedCategory === item
                   ? "bg-indigo-100 text-indigo-600"
                   : "bg-gray-100 text-gray-600"
-              }`}
+                }`}
             >
               {icons[item]}
             </div>
