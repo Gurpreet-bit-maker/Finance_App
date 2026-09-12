@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { LogOut, Sparkles } from "lucide-react";
+import { LogOut, Sparkles, Moon, Sun } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExpenseVarible } from "../Context/expense/Expense";
 import GraphComp from "../Components/DeshboardPage/GraphComp";
@@ -12,7 +12,7 @@ import Navbar from "../Components/BottomNav/Navbar"
 
 function Deshboard() {
   const apiUrl = import.meta.env.VITE_SERVER
-
+  const [darkMode, setDarkMode] = useState(false);
   let navigate = useNavigate();
   let { transection, MonthlySum, graphData, userInfo, getDeshboardFunc } =
     useContext(ExpenseVarible);
@@ -21,7 +21,7 @@ function Deshboard() {
       const logout = await axios.get(`${apiUrl}/api/auth/logout`, {
         withCredentials: true,
       });
-      
+
       navigate("/login");
     } catch (error) {
       console.log(error.response?.data);
@@ -35,9 +35,9 @@ function Deshboard() {
   useEffect(() => {
     getDashboard();
   }, []);
-
+  // ! working on dark mode pending
   return (
-    <div className="p-5 lg:mx-auto lg:max-w-6xl xl:max-w-7xl" style={{ paddingBottom: "100px" }}>
+    <div className={darkMode ? "p-5 lg:mx-auto lg:max-w-6xl xl:max-w-7xl dark bg-gray-900" : "p-5 lg:mx-auto lg:max-w-6xl xl:max-w-7xl"} style={{ paddingBottom: "100px" }}>
       {/* profile and logout btn */}
       <div className="flex items-center justify-between gap-4">
         {/* Left */}
@@ -51,6 +51,14 @@ function Deshboard() {
           </h1> */}
         </div>
 
+
+        {/* dark mode */}
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className="flex h-10 w-10 items-center justify-center rounded-xl border"
+        >
+          {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+        </button>
         {/* Right */}
         <button
           onClick={logout}
